@@ -1,4 +1,4 @@
-from flask import Flask, jsonify
+from flask import Flask, jsonify, render_template
 from flask_cors import CORS
 
 
@@ -9,6 +9,9 @@ app.config.from_object(__name__)
 # enable CORS
 CORS(app, resources={r'/pong': {'origins': '*'}})
 
+@app.route('/')
+def main():
+    return render_template("defrr.html")
 
 # sanity check route
 @app.route('/pong', methods=['GET'])
