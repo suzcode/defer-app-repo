@@ -4,6 +4,7 @@ Flask-Cors==3.0.10
 flask-marshmallow==0.15.0
 Flask-SQLAlchemy==3.0.3
 greenlet==2.0.2
+gunicorn==19.9.0
 importlib-metadata==6.6.0
 itsdangerous==2.1.2
 Jinja2==3.1.2
