@@ -16,4 +16,4 @@ spec:
       - name: hello-world-app
         image: my-app-image
         ports:
-          - containerPort: 80
+          - containerPort: 8080
