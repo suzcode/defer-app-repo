@@ -1,7 +1,7 @@
 FROM python:3.9.15-slim
 
 ENV APP_HOME /app
-ENV PORT 8080
+ENV PORT 80
 
 COPY requirements.txt .
 
@@ -9,7 +9,7 @@ RUN pip install --no-cache-dir -r requirements.txt
 
 COPY . .
 
-EXPOSE 8080
+EXPOSE 80
 
 # Run the web service on container startup. Here we use the gunicorn
 # webserver, with one worker process and 8 threads.
