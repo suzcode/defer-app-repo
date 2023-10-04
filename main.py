@@ -6,7 +6,7 @@ from firebase_admin import credentials
 
 cred = credentials.Certificate("serviceAccountKey.json")
 db = firestore.client()
-firebase_admin.initialize_app(cred)
+app = firebase_admin.initialize_app(cred)
 
 
 # instantiate the app
