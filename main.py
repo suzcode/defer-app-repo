@@ -27,7 +27,7 @@ def ping_pong():
     docs = db.collection("users").stream()
     for doc in docs:
         print(f"{doc.id} => {doc.to_dict()}")
-    return jsonify('pong!')
+    return jsonify(doc.id)
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=8080)
