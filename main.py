@@ -2,12 +2,12 @@ from flask import Flask, jsonify, render_template
 from flask_cors import CORS
 import firebase_admin
 from firebase_admin import firestore
-from firebase_admin import credentials
+# from firebase_admin import credentials
 
 # cred = credentials.Certificate("serviceAccountKey.json")
-cred = credentials.applicationDefault
+#cred = credentials.Cerfiticate("serviceAccountKey.json")
 
-firebase_admin.initialize_app(cred)
+firebase_admin.initialize_app()
 
 db = firestore.client()
 
