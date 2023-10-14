@@ -17,7 +17,7 @@ app.config.from_object(__name__)
 CORS(app, resources={r'/microservice1': {'origins': '*'}})
 
 def get_api_key():
-    secret_name = "projects/defrr-398521/secrets/api-defrr-key/versions/1"
+    secret_name = "projects/defrr-398521/secrets/api-defrr-key/versions/2"
     client = secretmanager.SecretManagerServiceClient()
     response = client.access_secret_version(request={"name": secret_name})
     return response.payload.data.decode("UTF-8")
