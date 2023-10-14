@@ -2,10 +2,8 @@ from flask import Flask, jsonify, render_template
 from flask_cors import CORS
 import firebase_admin
 from firebase_admin import firestore
-# from firebase_admin import creds
+from google-cloud import secretmanager
 
-# cred = credentials.Certificate("serviceAccountKey.json")
-#cred = credentials.Cerfiticate("serviceAccountKey.json")
 
 firebase_admin.initialize_app()
 
@@ -17,6 +15,15 @@ app.config.from_object(__name__)
 
 # enable CORS
 CORS(app, resources={r'/microservice1': {'origins': '*'}})
+
+def get_api_key():
+    secret_name = "projects/defrr-398521/secrets/api-defrr-key/versions/1"
+    client = secretmanager.SecretManagerServiceClient()
+    response = client.access_secret_version(request={"name": secret_name})
+    return response.payload.data.decode("UTF-8")
+
+api_key = get_api_key()
+
 
 @app.route('/')
 def main():
