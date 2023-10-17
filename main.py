@@ -14,14 +14,33 @@ db = firestore.client()
 app = Flask(__name__)
 app.config.from_object(__name__)
 
+
+project_id = "defrr-398521"
+secret_id = "api-defrr-key"
+client = secretmanager.SecretManagerServiceClient()
+parent = f"projects/{project_id}"
+
+# Create the parent secret
+secret = client.create_secret(
+    request={
+        "parent": parent,
+        "secret_id": secret_id,
+        "secret": {"replication": {"automatic": {}}},
+    }
+)
+
+# Add the secret version
+version = client.add_secret_version(
+    request={"parent": secret.name, "payload": {"data": b"hello world!"}}
+)
+
 # enable CORS
 CORS(app, resources={r'/microservice1': {'origins': '*'}})
 
 def get_api_key():
-    secret_name = "projects/507089454572/secrets/api-defrr-key/versions/latest"
-    client = secretmanager.SecretManagerServiceClient()
-    response = client.access_secret_version(request={"name": secret_name})
-    return response.payload.data.decode("UTF-8")
+    response = client.access_secret_version(request={"name": version.name})
+    payload = response.payload.data.decode("UTF-8")
+    return payload
 
 
 @app.route('/')
