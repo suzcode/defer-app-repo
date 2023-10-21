@@ -13,7 +13,7 @@ firebase_admin.initialize_app()
 
 db = firestore.client()
 
-project_id = "507089454572"
+project_id = "defrr-398521"
 secret_id = "api-defrr-key"
 client = secretmanager.SecretManagerServiceClient()
 parent = f"projects/{project_id}"
