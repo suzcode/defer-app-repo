@@ -41,6 +41,7 @@ CORS(app, resources={r'/microservice1': {'origins': '*'}})
 def get_api_key():
     response = client.access_secret_version(request={"name": secret_version_name})
     payload = response.payload.data.decode("UTF-8")
+    print(f"Plaintext: {payload}")
     return payload
 
 
