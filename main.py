@@ -5,17 +5,15 @@ from firebase_admin import firestore
 from google.cloud import secretmanager
 import json
 
+# instantiate the app
+app = Flask(__name__)
+app.config.from_object(__name__)
 
 firebase_admin.initialize_app()
 
 db = firestore.client()
 
-# instantiate the app
-app = Flask(__name__)
-app.config.from_object(__name__)
-
-
-project_id = "defrr-398521"
+project_id = "507089454572"
 secret_id = "api-defrr-key"
 client = secretmanager.SecretManagerServiceClient()
 parent = f"projects/{project_id}"
