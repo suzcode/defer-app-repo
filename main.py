@@ -52,9 +52,9 @@ def main():
 # sanity check route
 @app.route('/microservice1', methods=['GET'])
 def ping_pong():
-    api_key = get_api_key()
-    credentials = firebase_admin.credentials.Certificate(json.loads(api_key))
-    firebase_admin.initialize_app(credentials=credentials)
+    #api_key = get_api_key()
+    #credentials = firebase_admin.credentials.Certificate(json.loads(api_key))
+    #firebase_admin.initialize_app(credentials=credentials)
     data = ["hello shane"]
     # docs = db.collection("users").stream()
     #for doc in docs:
