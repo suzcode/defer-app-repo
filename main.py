@@ -55,13 +55,13 @@ def ping_pong():
     api_key = get_api_key()
     credentials = firebase_admin.credentials.Certificate(json.loads(api_key))
     firebase_admin.initialize_app(credentials=credentials)
-    data = []
-    docs = db.collection("users").stream()
-    for doc in docs:
-        data.append({
-            "id": doc.id,
-            "data": doc.to_dict()
-        })
+    data = ["hello shane"]
+    # docs = db.collection("users").stream()
+    #for doc in docs:
+        #data.append({
+            #"id": doc.id,
+            #"data": doc.to_dict()
+        #})
     return jsonify({"data": data})
 
 if __name__ == '__main__':
