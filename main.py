@@ -62,7 +62,8 @@ def ping_pong():
             "id": doc.id,
             "data": doc.to_dict()
         })
-    return jsonify({"data": data})
+    # return jsonify({"data": data})
+    return jsonify(doc.id)
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=8080)
