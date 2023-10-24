@@ -54,7 +54,7 @@ def main():
 def ping_pong():
     api_key = get_api_key()
     credentials = firebase_admin.credentials.Certificate(json.loads(api_key))
-    firebase_admin.initialize_app(credentials=credentials)
+    firebase_admin.initialize_app(credentials)
     data = []
     docs = db.collection("users").stream()
     for doc in docs:
