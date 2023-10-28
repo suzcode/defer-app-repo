@@ -58,7 +58,7 @@ def ping_pong():
     #docs = db.collection("users").stream()
     docs = (
         db.collection("users")
-        .where(filter=FieldFilter("first name", "==", "John"))
+        #.where(filter=FieldFilter("first name", "==", "John"))
         .stream()
     )
     for doc in docs:
