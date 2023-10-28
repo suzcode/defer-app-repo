@@ -1,7 +1,7 @@
 from flask import Flask, jsonify, render_template
 from flask_cors import CORS
 import firebase_admin
-from firebase_admin import firestore
+from firebase_admin import firestore, FieldFilter
 from google.cloud import secretmanager
 import json
 
@@ -55,14 +55,16 @@ def ping_pong():
     #api_key = get_api_key()
     #credentials = firebase_admin.credentials.Certificate(json.loads(api_key))
     data = []
-    docs = db.collection("users").stream()
-    for doc in docs:
-        data.append({
-            "id": doc.id,
-            "data": doc.to_dict()
-        })
+    #docs = db.collection("users").stream()
+    name_ref = db.collection("users")
+    query = name_ref.where(filter=FieldFilter("first name", "==", "John"))
+    #for doc in docs:
+        #data.append({
+            #"id": doc.id,
+            #"data": doc.to_dict()
+        #})
     # return jsonify({"data": data})
-    return jsonify(doc.id)
+    return jsonify(query)
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=8080)
