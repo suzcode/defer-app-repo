@@ -52,22 +52,13 @@ def main():
 # sanity check route
 @app.route('/microservice1', methods=['GET'])
 def ping_pong():
-    #api_key = get_api_key()
-    #credentials = firebase_admin.credentials.Certificate(json.loads(api_key))
-    data_back = []
-    #docs = db.collection("users").stream()
-    docs = (
-        db.collection("users")
-        #.where(filter=FieldFilter("first name", "==", "John"))
-        .stream()
-    )
-    for doc in docs:
-        data_back.append({
-            "id": doc.id,
-            "data": doc.to_dict()
-        })
-    # return jsonify({"data": data})
-    return jsonify(data_back)
+    users_ref = db.collection('users')
+    query = users_ref.where('first name', '==', 'John').limit(5)  # Your query conditions here
+    results = query.stream()
+    users_data = []
+    for result in results:
+        users_data.append({"id": result.id, "data": result.to_dict()})
+    return jsonify(users_data)
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=8080)
