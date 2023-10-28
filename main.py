@@ -54,17 +54,20 @@ def main():
 def ping_pong():
     #api_key = get_api_key()
     #credentials = firebase_admin.credentials.Certificate(json.loads(api_key))
-    data = []
+    data_back = []
     #docs = db.collection("users").stream()
-    name_ref = db.collection("users")
-    query = name_ref.where(filter=FieldFilter("first name", "==", "John"))
-    #for doc in docs:
-        #data.append({
-            #"id": doc.id,
-            #"data": doc.to_dict()
-        #})
+    docs = (
+        db.collection("users")
+        .where(filter=FieldFilter("first name", "==", "John"))
+        .stream()
+    )
+    for doc in docs:
+        data_back.append({
+            "id": doc.id,
+            "data": doc.to_dict()
+        })
     # return jsonify({"data": data})
-    return jsonify(query.data)
+    return jsonify(data_back.data)
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=8080)
