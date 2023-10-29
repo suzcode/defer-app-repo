@@ -29,7 +29,7 @@ def ping_pong():
     users_data = []
     for result in results:
         users_data.append({"id": result.id, "data": result.to_dict()})
-    return jsonify(users_ref)
+    return jsonify(users_data)
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=8080)
