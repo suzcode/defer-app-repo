@@ -1,26 +1,16 @@
 from flask import Flask, jsonify, render_template
 from flask_cors import CORS
 import firebase_admin
-from firebase_admin import firestore, credentials
-from google.cloud import secretmanager
-import google.auth.exceptions
+from firebase_admin import firestore
 
 # instantiate the app
 app = Flask(__name__)
 
-try:
-    cred = credentials.ApplicationDefault()
-    firebase_admin.initialize_app(cred, {
-        'projectId': 'defrr-398521'
-    })   
-    db = firestore.client()
-except google.auth.exceptions.DefaultCredentialsError as e:
-    print("Failed to initialise", e)
-#app.config.from_object(__name__)
+app.config.from_object(__name__)
 
-#firebase_admin.initialize_app()
+firebase_admin.initialize_app()
 
-#db = firestore.client()
+db = firestore.client()
 
 CORS(app, resources={r'/microservice1': {'origins': '*'}})
 
