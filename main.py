@@ -13,37 +13,7 @@ firebase_admin.initialize_app()
 
 db = firestore.client()
 
-#project_id = "defrr-398521"
-#secret_id = "api-defrr-key"
-#client = secretmanager.SecretManagerServiceClient()
-#parent = f"projects/{project_id}"
-
-# GET THE SECRET VERSION NAME
-#secret_version_name = f"projects/{project_id}/secrets/{secret_id}/versions/latest"
-
-# Create the parent secret
-#secret = client.create_secret(
-    #request={
-        #"parent": parent,
-        #"secret_id": secret_id,
-        #"secret": {"replication": {"automatic": {}}},
-    #}
-#)
-
-# Add the secret version
-#version = client.add_secret_version(
-    #request={"parent": secret.name, "payload": {"data": b"hello world!"}}
-#)
-
-# enable CORS
 CORS(app, resources={r'/microservice1': {'origins': '*'}})
-
-#def get_api_key():
-    #response = client.access_secret_version(request={"name": secret_version_name})
-    #payload = response.payload.data.decode("UTF-8")
-    #print(f"Plaintext: {payload}")
-    #return payload
-
 
 @app.route('/')
 def main():
