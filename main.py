@@ -24,7 +24,7 @@ def main():
 def ping_pong():
     users_ref = db.collection('users')
     field_filter = FieldFilter("age", "==", 25)
-    query = users_ref.where(field_filter)  # Your query conditions here
+    query = users_ref.where(filter=field_filter)  # Your query conditions here
     results = query.stream()
     users_data = []
     for result in results:
