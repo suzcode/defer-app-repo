@@ -23,7 +23,7 @@ def main():
 @app.route('/microservice1', methods=['GET'])
 def ping_pong():
     users_ref = db.collection('users')
-    field_filter = FieldFilter("age", "==", 25)
+    field_filter = FieldFilter("age", "==", 54)
     query = users_ref.where(filter=field_filter)  # Your query conditions here
     results = query.stream()
     users_data = []
