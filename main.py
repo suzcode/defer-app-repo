@@ -11,7 +11,7 @@ app = Flask(__name__)
 try:
     cred = credentials.ApplicationDefault()
     firebase_admin.initialize_app(cred, {
-        'projectId': 'simple-398521'
+        'projectId': 'defrr-398521'
     })   
     db = firestore.client()
 except google.auth.exceptions.DefaultCredentialsError as e:
