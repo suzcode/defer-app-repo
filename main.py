@@ -13,7 +13,7 @@ firebase_admin.initialize_app()
 
 db = firestore.client()
 
-CORS(app, resources={r'/microservice1': {'origins': '*'}})
+# CORS(app, resources={r'/microservice1': {'origins': '*'}})
 
 @app.route('/')
 def main():
@@ -30,6 +30,15 @@ def main():
 #     for result in results:
 #         users_data.append({"id": result.id, "data": result.to_dict()})
 #     return jsonify(users_data)
+
+@app.after_request
+def after_request(response):
+    white_origin= [r'/microservice1','http://34.111.111.147']
+    if request.headers['Origin'] in white_origin:
+        response.headers['Access-Control-Allow-Origin'] = request.headers['Origin'] 
+        response.headers['Access-Control-Allow-Methods'] = 'PUT,GET,POST,DELETE'
+        response.headers['Access-Control-Allow-Headers'] = 'Content-Type,Authorization'
+    return response
 
 @app.route('/microservice1', methods=['GET', 'POST'])
 def user_details():
