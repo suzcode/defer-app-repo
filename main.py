@@ -45,7 +45,7 @@ def user_details():
     users_data = []
     if request.method == 'POST':
         post_data = int(json.loads(request.data))
-        print('Post data is:', post_data.value)
+        print('Post data is:', post_data)
         user_age = post_data.value
         users_ref = db.collection('users')
         field_filter = FieldFilter("age", "==", user_age)
