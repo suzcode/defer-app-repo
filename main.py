@@ -58,7 +58,6 @@ def user_details():
     else:
         users_data = ["hell0"]
         return jsonify(users_data)
-    return jsonify(users_data)
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=8080)
