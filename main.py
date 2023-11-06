@@ -19,7 +19,7 @@ db = firestore.client()
 def main():
     return render_template("defrr.html")
 
-# sanity check route
+# sanity check routes
 # @app.route('/microservice1', methods=['GET'])
 # def ping_pong():
 #     users_ref = db.collection('users')
@@ -58,7 +58,7 @@ def user_details():
     else:
         users_data = ["hell0"]
         return jsonify(users_data)
-return jsonify(users_data)
+    return jsonify(users_data)
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=8080)
