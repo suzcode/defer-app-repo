@@ -36,8 +36,8 @@ def after_request(response):
     white_origin= [r'/microservice1','http://34.111.111.147']
     if request.headers['Origin'] in white_origin:
         response.headers['Access-Control-Allow-Origin'] = request.headers['Origin'] 
-        response.headers['Access-Control-Allow-Methods'] = 'PUT,GET,POST,DELETE'
-        response.headers['Access-Control-Allow-Headers'] = 'Content-Type,application/json'
+        # response.headers['Access-Control-Allow-Methods'] = 'PUT,GET,POST,DELETE'
+        # response.headers['Access-Control-Allow-Headers'] = 'Content-Type,application/json'
     return response
 
 @app.route('/microservice1', methods=['GET', 'POST'])
