@@ -44,7 +44,7 @@ def after_request(response):
 def user_details():
     users_data = []
     if request.method == 'POST':
-        post_data = int(float(request.data))
+        post_data = int(json.loads(request.data))
         print('Post data is:', post_data)
         user_age = post_data.value
         users_ref = db.collection('users')
