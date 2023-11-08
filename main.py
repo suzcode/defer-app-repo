@@ -49,7 +49,7 @@ def user_details():
         else:
             post_data = json.loads((request.data))
         print('Post data is:', post_data)
-        user_age = post_data['userage']
+        user_age = post_data['ageval']
         users_ref = db.collection('users')
         field_filter = FieldFilter("age", "==", user_age)
         query = users_ref.where(filter=field_filter)  # Your query conditions here
