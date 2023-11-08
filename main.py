@@ -46,7 +46,7 @@ def user_details():
         if request.data == None or request.data == '':
             print('I got a null or empty string value for data in a file')
         else:
-            post_data = json.loads((request.data))
+            post_data = json.loads(request.data)
         print('Post data is:', post_data)
         user_age = post_data['ageval']
         users_ref = db.collection('users')
