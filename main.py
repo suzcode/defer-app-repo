@@ -47,9 +47,9 @@ def user_details():
         if request.data == None or request.data == '':
             print('I got a null or empty string value for data in a file')
         else:
-            post_data = json.loads(str(request.data))
+            post_data = json.loads((request.data))
         print('Post data is:', post_data)
-        user_age = post_data.value
+        user_age = post_data['userage']
         users_ref = db.collection('users')
         field_filter = FieldFilter("age", "==", user_age)
         query = users_ref.where(filter=field_filter)  # Your query conditions here
