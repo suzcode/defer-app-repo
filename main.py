@@ -34,8 +34,8 @@ def main():
 @app.after_request
 def after_request(response):
     white_origin= [r'/microservice1','http://34.111.111.147']
-    if request.headers['Origin'] in white_origin:
-        response.headers['Access-Control-Allow-Origin'] = request.headers['Origin'] 
+    if request.headers['HTTP_ORIGIN'] in white_origin:
+        response.headers['Access-Control-Allow-Origin'] = request.headers['HTTP_ORIGIN'] 
         # response.headers['Access-Control-Allow-Headers'] = 'Content-Type,application/json'
     return response
 
