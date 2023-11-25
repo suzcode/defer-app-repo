@@ -4,6 +4,7 @@ import firebase_admin
 from firebase_admin import firestore
 from google.cloud.firestore_v1.base_query import FieldFilter
 
+# updated 26 Nov
 # instantiate the app
 app = Flask(__name__)
 
@@ -34,8 +35,8 @@ def main():
 @app.after_request
 def after_request(response):
     white_origin= [r'/microservice1','http://34.111.111.147']
-    if request.headers['HTTP_ORIGIN'] in white_origin:
-        response.headers['Access-Control-Allow-Origin'] = request.headers['HTTP_ORIGIN'] 
+    if request.headers['Origin'] in white_origin:
+        response.headers['Access-Control-Allow-Origin'] = request.headers['Origin'] 
         # response.headers['Access-Control-Allow-Headers'] = 'Content-Type,application/json'
     return response
 
