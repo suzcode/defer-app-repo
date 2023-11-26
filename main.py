@@ -30,6 +30,7 @@ def after_request(response):
 def user_details():
     users_data = []
     if request.method == 'POST':
+        print('Request', request)
         if request.data == None or request.data == '':
             print('I got a null or empty string value for data in a file')
         else:
