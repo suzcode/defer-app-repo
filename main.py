@@ -38,7 +38,7 @@ def user_details():
             print('Post data raw', post_data_raw)
             post_data = json.loads(request.data)
         print('Post data is:', post_data)
-        # return post_data
+        return post_data
         user_age = post_data['ageval']
         users_ref = db.collection('users')
         field_filter = FieldFilter("age", "==", user_age)
