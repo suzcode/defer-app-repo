@@ -39,15 +39,15 @@ def user_details():
             # post_data = json.loads(request.data)
         # print('Post data is:', post_data)
         return post_data_raw
-        user_age = post_data['ageval']
-        users_ref = db.collection('users')
-        field_filter = FieldFilter("age", "==", user_age)
-        query = users_ref.where(filter=field_filter)  # Your query conditions here
-        results = query.stream()
-        users_data = []
-        for result in results:
-            users_data.append({"id": result.id, "data": result.to_dict()})
-        return jsonify(users_data)
+        # user_age = post_data['ageval']
+        # users_ref = db.collection('users')
+        # field_filter = FieldFilter("age", "==", user_age)
+        # query = users_ref.where(filter=field_filter)  # Your query conditions here
+        # results = query.stream()
+        # users_data = []
+        # for result in results:
+        #     users_data.append({"id": result.id, "data": result.to_dict()})
+        # return jsonify(users_data)
     else:
         users_data = ["hell0"]
         print(users_data)
