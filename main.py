@@ -13,6 +13,7 @@ whitelisted_origins = [
     # Add more origins as needed
 ]
 
+# White list the origins
 CORS(app, origins=whitelisted_origins)
 
 app.config.from_object(__name__)
@@ -41,7 +42,7 @@ def user_details():
     if request.method == 'POST':
         print('Request', request)
         if request.data == None or request.data == '':
-            print('I got a null or empty string value for data in a file')
+            print('null or empty string value for data in a file')
         else:
             post_data_raw = request.data
             print('Post data raw', post_data_raw)
@@ -57,7 +58,7 @@ def user_details():
                 users_data.append({"id": result.id, "data": result.to_dict()})
             return jsonify(users_data)
     else:
-        users_data = ["hell0"]
+        users_data = ["hello there shane"]
         print(users_data)
     return jsonify(users_data)
 
