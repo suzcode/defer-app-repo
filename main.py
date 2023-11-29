@@ -56,7 +56,7 @@ def user_details():
             users_data = [user_age]
             for result in results:
                 users_data.append({"id": result.id, "data": result.to_dict()})
-            return jsonify(users_data.data)
+            return jsonify(users_data)
     else:
         users_data = ["hello there shane"]
         print(users_data)
