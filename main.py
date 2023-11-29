@@ -38,7 +38,7 @@ def main():
 
 @app.route('/microservice1', methods=['GET', 'POST'])
 def user_details():
-    users_data = []
+    users_data = ["beep"]
     if request.method == 'POST':
         print('Request', request)
         if request.data == None or request.data == '':
