@@ -28,16 +28,6 @@ db = firestore.client()
 def main():
     return render_template("defrr.html")
 
-# @app.after_request
-# def after_request(response):
-#     white_origin= [r'/microservice1','http://34.111.111.147']
-
-#     # Check if 'Origin' is present in request headers
-#     if 'Origin' in request.headers:
-#         if request.headers['Origin'] in white_origin:
-#             response.headers['Access-Control-Allow-Origin'] = request.headers['Origin'] 
-#     return response
-
 @app.route('/microservice1', methods=['GET', 'POST'])
 def user_details():
     users_data = ["beep"]
