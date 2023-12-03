@@ -41,3 +41,6 @@ class Customer:
         print(monthList)
         print(monthList[0])
         return len(monthList)
+    
+    def year_diff(self):
+        return end_yr - start_yr
