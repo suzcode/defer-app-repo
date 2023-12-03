@@ -2,7 +2,6 @@ from flask import json
 from datetime import date
 from dateutil import rrule
 from itertools import accumulate
-import pandas as pd
 
 
 class Customer:
