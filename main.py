@@ -3,6 +3,8 @@ import firebase_admin
 from firebase_admin import firestore
 from flask_cors import CORS
 from google.cloud.firestore_v1.base_query import FieldFilter
+import contractcalcs
+from contractcalcs import *
 
 
 app = Flask(__name__)
