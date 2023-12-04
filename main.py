@@ -50,7 +50,7 @@ def user_details():
             results = query.stream()
             users_data = []
             for result in results:
-                users_data.append({"id": result.id, "data": result.to_dict()})
+                users_data.append({"id": result.id, "fields": result.to_dict()})
             return jsonify(users_data)
     else:
         users_data = ["hello there shane"]
