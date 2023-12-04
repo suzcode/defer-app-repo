@@ -42,11 +42,15 @@ def user_details():
             print('Post data is:', post_data)
             user_age = int(post_data['ageval'])
             users_ref = db.collection('users')
-            field_filter = FieldFilter("age", "==", user_age)
+            # field_filter = FieldFilter("age", "==", user_age)
+            # -------------------------------------
             # self_info = ["c1234", "TVNZ Inc", "c1", 2021, 3, 10, 10000, 3, 2027, 10, 23, 18]
             # cont_years = Customer.year_diff(self_info)
             # return jsonify(cont_years)
-            query = users_ref.where(filter=field_filter)  # Your query conditions here
+            # -------------------------------------
+
+            #query = users_ref.where(filter=field_filter)  # Your query conditions here
+            query = users_ref
             results = query.stream()
             users_data = [user_age]
             for result in results:
