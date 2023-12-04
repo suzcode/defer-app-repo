@@ -48,7 +48,7 @@ def user_details():
             # return jsonify(cont_years)
             query = users_ref.where(filter=field_filter)  # Your query conditions here
             results = query.stream()
-            users_data = []
+            users_data = [user_age]
             for result in results:
                 users_data.append({"id": result.id, "fields": result.to_dict()})
             return jsonify(users_data)
