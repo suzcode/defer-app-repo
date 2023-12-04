@@ -51,10 +51,12 @@ def user_details():
 
             #query = users_ref.where(filter=field_filter)  # Your query conditions here
             query = users_ref
-            results = query.stream()
+            docs = query.stream()
             users_data = [user_age]
-            for result in results:
-                users_data.append({"id": result.id, "fields": result.to_dict()})
+            for doc in docs:
+                # users_data.append({"id": doc.id, "fields": doc.to_dict()})
+                document_data = {'document_id': doc.id, 'data': doc.to_dict()}
+                users_data.append(document_data)
             return jsonify(users_data)
     else:
         users_data = ["hello there shane"]
