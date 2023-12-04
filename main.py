@@ -43,15 +43,15 @@ def user_details():
             user_age = int(post_data['ageval'])
             users_ref = db.collection('users')
             field_filter = FieldFilter("age", "==", user_age)
-            self_info = ["c1234", "TVNZ Inc", "c1", 2021, 3, 10, 10000, 3, 2027, 10, 23, 18]
-            cont_years = Customer.year_diff(self_info)
-            return jsonify(cont_years)
-            # query = users_ref.where(filter=field_filter)  # Your query conditions here
-            # results = query.stream()
-            # users_data = [user_age]
-            # for result in results:
-            #     users_data.append({"id": result.id, "data": result.to_dict()})
-            # return jsonify(users_data)
+            # self_info = ["c1234", "TVNZ Inc", "c1", 2021, 3, 10, 10000, 3, 2027, 10, 23, 18]
+            # cont_years = Customer.year_diff(self_info)
+            # return jsonify(cont_years)
+            query = users_ref.where(filter=field_filter)  # Your query conditions here
+            results = query.stream()
+            users_data = [user_age]
+            for result in results:
+                users_data.append({"id": result.id, "data": result.to_dict()})
+            return jsonify(users_data)
     else:
         users_data = ["hello there shane"]
         print(users_data)
