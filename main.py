@@ -40,19 +40,20 @@ def user_details():
             print('Post data raw', post_data_raw)
             post_data = json.loads(request.data)
             print('Post data is:', post_data)
-            user_age = int(post_data['ageval'])
+            # user_age = int(post_data['ageval'])
+            customer_selection = post_data['ageval']
             users_ref = db.collection('users')
-            # field_filter = FieldFilter("age", "==", user_age)
+            field_filter = FieldFilter("customer_name", "==", customer_selection)
             # -------------------------------------
             # self_info = ["c1234", "TVNZ Inc", "c1", 2021, 3, 10, 10000, 3, 2027, 10, 23, 18]
             # cont_years = Customer.year_diff(self_info)
             # return jsonify(cont_years)
             # -------------------------------------
 
-            #query = users_ref.where(filter=field_filter)  # Your query conditions here
-            query = users_ref
+            query = users_ref.where(filter=field_filter)  # Your query conditions here
+            #query = users_ref
             docs = query.stream()
-            users_data = [user_age]
+            users_data = [customer_selection]
             for doc in docs:
                 # users_data.append({"id": doc.id, "fields": doc.to_dict()})
                 document_data = {'document_id': doc.id, 'data': doc.to_dict()}
