@@ -70,7 +70,7 @@ def user_details():
     else:
         users_data = ["hello there shane"]
         print(users_data)
-    return jsonify(users_data)
+    return jsonify(users_data1)
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=8080)
