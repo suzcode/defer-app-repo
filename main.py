@@ -24,13 +24,16 @@ firebase_admin.initialize_app()
 
 db = firestore.client()
 
+# def pullRows(users_data):
+
+
+
 @app.route('/')
 def main():
     return render_template("defrr.html")
 
 @app.route('/microservice1', methods=['GET', 'POST'])
 def user_details():
-    users_data = ["beep"]
     if request.method == 'POST':
         print('Request', request)
         if request.data == None or request.data == '':
@@ -54,11 +57,12 @@ def user_details():
             query = database_ref.document(subscriber_id).collection('contracts')  # Your query conditions here
             #query = users_ref
             docs = query.stream()
-            users_data = [subscriber_id]
+            users_data = []
             for doc in docs:
                 # users_data.append({"id": doc.id, "fields": doc.to_dict()})
                 document_data = {'data': doc.to_dict()}
                 users_data.append(document_data)
+                #pullRows(users_data)
             return jsonify(users_data)
     else:
         users_data = ["hello there shane"]
