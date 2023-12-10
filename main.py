@@ -26,7 +26,7 @@ db = firestore.client()
 
 def pullRows(users_data):
     i = 0
-    while i < 1:
+    while i < 2:
         value_ret = users_data[i]
         i += 1
     return value_ret
@@ -68,8 +68,8 @@ def user_details():
                 users_data1 = pullRows(users_data)
             return jsonify(users_data1)
     else:
-        users_data = ["hello there shane"]
-        print(users_data)
+        users_data1 = ["hello there shane"]
+        print(users_data1)
     return jsonify(users_data1)
 
 if __name__ == '__main__':
