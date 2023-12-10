@@ -28,7 +28,7 @@ def pullRows(users_data):
     i = 0
     while i < 1:
         value_ret = users_data[i]
-        dict_ret = value_ret[1]
+        dict_ret = value_ret
         i += 1
     return dict_ret
 
