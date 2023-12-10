@@ -60,7 +60,7 @@ def user_details():
             users_data = []
             for doc in docs:
                 # users_data.append({"id": doc.id, "fields": doc.to_dict()})
-                document_data = {'data': doc.to_dict()}
+                document_data = {doc.to_dict()}
                 users_data.append(document_data)
                 #pullRows(users_data)
             return jsonify(users_data)
