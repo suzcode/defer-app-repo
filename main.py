@@ -24,9 +24,11 @@ firebase_admin.initialize_app()
 
 db = firestore.client()
 
-# def pullRows(users_data):
-
-
+def pullRows(users_data):
+    i = 0
+    while i < 1:
+        value_ret = users_data[i]
+    return value_ret
 
 @app.route('/')
 def main():
@@ -60,10 +62,10 @@ def user_details():
             users_data = []
             for doc in docs:
                 # users_data.append({"id": doc.id, "fields": doc.to_dict()})
-                document_data = {doc.to_dict()}
+                document_data = {'data': doc.to_dict()}
                 users_data.append(document_data)
-                #pullRows(users_data)
-            return jsonify(users_data)
+                users_data1 = pullRows(users_data)
+            return jsonify(users_data1)
     else:
         users_data = ["hello there shane"]
         print(users_data)
