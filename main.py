@@ -30,8 +30,8 @@ def pullRows(users_data):
         value_ret = users_data[i]
         dict_ret = value_ret["data"]
         new_list = []
-        for (k,v) in dict_ret:
-            new_list.append(v)
+        for value in dict_ret:
+            new_list.append(value)
         # cont_id = dict_ret["customer_name"]
         i += 1
     return new_list
