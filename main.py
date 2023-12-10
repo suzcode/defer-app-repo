@@ -29,8 +29,9 @@ def pullRows(users_data):
     while i < 1:
         value_ret = users_data[i]
         dict_ret = value_ret["data"]
+        cont_id = dict_ret["customer_name"]
         i += 1
-    return dict_ret
+    return cont_id
 
 @app.route('/')
 def main():
