@@ -28,6 +28,7 @@ def pullRows(users_data):
     i = 0
     while i < 1:
         value_ret = users_data[i]
+        i += 1
     return value_ret
 
 @app.route('/')
