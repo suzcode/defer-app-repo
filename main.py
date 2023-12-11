@@ -30,10 +30,11 @@ def pullRows(users_data):
         value_ret = users_data[i]
         dict_ret = value_ret["data"]
         new_list = []
-        for key in dict_ret:
-            new_list.append(dict_ret[key])
+        p = 0
+        while p < 13:
+            new_list.append(dict_ret[p])
+            i += 1
         # cont_id = dict_ret["customer_name"]
-        i += 1
     return dict_ret
 
 @app.route('/')
