@@ -50,21 +50,21 @@ class Customer:
         bill_list = []
         print(self)
         additional_months = 0
-        if self['term_mths'] % 12 == 0:
-            if abs(self['end_day'] - self['start_day']) <= 1:
+        if self.term_months % 12 == 0:
+            if abs(self.end_day - self.start_day) <= 1:
                 # if teh start month is 1 there is no need for a follow on year
-                if self['start_mth'] > 1:
+                if self.start_month > 1:
                     additional_months = 12
                     print("addition div ==0", additional_months)
         else:
-            if self['term_mths'] > 12:
-                additional_months = 12 - (self['term_mths'] % 12)
+            if self.term_months > 12:
+                additional_months = 12 - (self.term_months % 12)
                 print("addtional term > 12", additional_months)
             else:
-                additional_months = 12 - self['term_mths']
+                additional_months = 12 - self.term_months
                 print("addtional term < 12", additional_months)
         # creates a list of zero for the term of the contract
-        for i in range(int(self['term_mths'] + additional_months)):
+        for i in range(int(self.term_months + additional_months)):
             bill_list.append(0)
         print('length of bill list', len(bill_list))
         return bill_list
