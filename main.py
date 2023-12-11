@@ -29,7 +29,8 @@ def pullRows(users_data):
     while i < 1:
         value_ret = users_data[i]
         dict_ret = value_ret["data"]
-        values_list = [value for value in dict_ret.values()]
+        # values_list = [value for value in dict_ret.values()]
+        values_list = [dict_ret[key] for key in sorted(dict.ret.keys())]
         i += 1
     return values_list
 
