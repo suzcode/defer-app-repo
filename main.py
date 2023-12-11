@@ -29,13 +29,8 @@ def pullRows(users_data):
     while i < 1:
         value_ret = users_data[i]
         dict_ret = value_ret["data"]
-        new_list = []
-        p = 0
-        while p < 13:
-            new_list.append(dict_ret[p])
-            i += 1
-        # cont_id = dict_ret["customer_name"]
-    return dict_ret
+        values_list = [value for value in dict_ret.values()]
+    return values_list
 
 @app.route('/')
 def main():
