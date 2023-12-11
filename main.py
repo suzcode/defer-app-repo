@@ -34,7 +34,7 @@ def pullRows(users_data):
             new_list.append(dict_ret[key])
         # cont_id = dict_ret["customer_name"]
         i += 1
-    return new_list
+    return dict_ret
 
 @app.route('/')
 def main():
