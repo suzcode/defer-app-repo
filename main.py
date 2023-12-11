@@ -30,7 +30,7 @@ def pullRows(users_data):
         value_ret = users_data[i]
         dict_ret = value_ret["data"]
         # values_list = [value for value in dict_ret.values()]
-        values_list = [dict_ret[key] for key in sorted(dict.ret.keys())]
+        values_list = [dict_ret[key] for key in sorted(dict_ret.keys())]
         i += 1
     return values_list
 
