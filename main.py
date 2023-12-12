@@ -32,7 +32,8 @@ def pullRows(users_data):
         # values_list = [value for value in dict_ret.values()]
         values_list = [dict_ret[key] for key in sorted(dict_ret.keys())]
         i += 1
-    originalBillList = Customer.create_list(values_list)
+    customer_instance = Customer(values_list)
+    originalBillList = customer_instance.create_list()
     return originalBillList
 
 @app.route('/')
