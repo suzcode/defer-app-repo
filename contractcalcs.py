@@ -48,7 +48,7 @@ class Customer:
     def create_list(self):
         bill_list = []
         additional_months = 0
-        if self.termm % 12 == 0:
+        if self.term_months % 12 == 0:
             if abs(self.end_day - self.start_day) <= 1:
                 # if teh start month is 1 there is no need for a follow on year
                 if self.start_month > 1:
