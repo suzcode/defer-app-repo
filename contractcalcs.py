@@ -18,7 +18,6 @@ class Customer:
         self.starts = start_subs
         self.starty = start_year
         self.termm = term_months
-        return contract_id, customer_id, customer_name, end_day, end_month, end_year, percent_inc, start_day, start_month, start_subs, start_subs, start_year, term_months
 
     def start(self):
         start_day = self['start_day']
