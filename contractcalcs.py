@@ -6,17 +6,17 @@ from itertools import accumulate
 
 class Customer:
     def __init__(self, contract_id, customer_id, customer_name, end_day, end_month, end_year, percent_inc, start_day, start_month, start_subs, start_year, term_months):
-        self.conti = contract_id
-        self.custi = customer_id
-        self.custn = customer_name
+        self.contract_id = contract_id
+        self.customer_id = customer_id
+        self.customer_name = customer_name
         self.end_day = end_day
-        self.endm = end_month
-        self.endy = end_year
-        self.perci = percent_inc
+        self.end_month = end_month
+        self.end_year = end_year
+        self.percent_inc = percent_inc
         self.start_day = start_day
         self.start_month = start_month
-        self.starts = start_subs
-        self.starty = start_year
+        self.start_subs = start_subs
+        self.start_year = start_year
         self.term_months = term_months
 
     def start(self):
@@ -66,3 +66,23 @@ class Customer:
             bill_list.append(0)
         print('length of bill list', len(bill_list))
         return bill_list
+
+    def create_yearList(self, billList):
+        yearList = self.start_yr
+        i = 1
+        while i < (len(billList) / 12):
+            yearList.append(self.start_yr + i)
+            i += 1
+        return yearList
+
+    def create_profile(self, profileraw, years):
+        profile = []
+        NUM_ROWS = len(years)
+        NUM_COLS = 12
+        for row_num in range(NUM_ROWS):
+            new_row = []
+            for col_num in range(NUM_COLS):
+                new_row.append(profileraw[row_num * NUM_COLS + col_num])
+            profile.append(new_row)
+        print('CUSTOMER PROFILE:   ', list(profile))
+        return profile
