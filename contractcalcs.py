@@ -68,7 +68,7 @@ class Customer:
         return bill_list
 
     def create_yearList(self, billList):
-        yearList = self.start_year
+        yearList = [self.start_year]
         i = 1
         while i < (len(billList) / 12):
             yearList.append(self.start_year + i)
