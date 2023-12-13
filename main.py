@@ -36,7 +36,8 @@ def pullRows(users_data):
     customer_instance = Customer(*values_list)
     originalBillList = customer_instance.create_list()
     years = customer_instance.create_yearList(originalBillList)
-    return years
+    bill = customer_instance.create_profile(originalBillList, years)
+    return bill
 
 @app.route('/')
 def main():
