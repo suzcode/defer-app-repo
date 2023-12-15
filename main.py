@@ -24,6 +24,25 @@ firebase_admin.initialize_app()
 
 db = firestore.client()
 
+def add_months_as_keys(filter, years):
+    months1 = ['id', 'jan', 'feb', 'mar', 'apr', 'may',
+               'jun', 'jul', 'aug', 'sep', 'oct', 'nov', 'dec']
+    lineNumber = 0
+    line_with_months = {}
+    resultList = []
+    years.append('TOTAL')
+    for line in filter:
+        print('line*****', line)
+        if len(line) != 13 and len(line) != 0:
+            line.insert(0, years[lineNumber])
+            print(line)
+        line_with_months = {k: v for (k, v) in zip(months1, line)}
+        print('line dict with months added =', line_with_months)
+        resultList.append(line_with_months)
+        print('Resultlist', resultList)
+        lineNumber += 1
+    return resultList
+
 def pullRows(users_data):
     i = 0
     while i < 1:
@@ -37,7 +56,8 @@ def pullRows(users_data):
     originalBillList = customer_instance.create_list()
     years = customer_instance.create_yearList(originalBillList)
     bill = customer_instance.create_profile(originalBillList, years)
-    return bill
+    final_list = add_months_as_keys(bill, years)
+    return final_list
 
 @app.route('/')
 def main():

@@ -39,6 +39,25 @@ class Customer:
         print(monthList[0])
         return len(monthList)
     
+    def add_months_as_keys(filter, years):
+        months1 = ['id', 'jan', 'feb', 'mar', 'apr', 'may',
+                'jun', 'jul', 'aug', 'sep', 'oct', 'nov', 'dec']
+        lineNumber = 0
+        line_with_months = {}
+        resultList = []
+        years.append('TOTAL')
+        for line in filter:
+            print('line*****', line)
+            if len(line) != 13 and len(line) != 0:
+                line.insert(0, years[lineNumber])
+                print(line)
+            line_with_months = {k: v for (k, v) in zip(months1, line)}
+            print('line dict with months added =', line_with_months)
+            resultList.append(line_with_months)
+            print('Resultlist', resultList)
+            lineNumber += 1
+        return resultList
+
     def year_diff(self):
         end_yr = self[8]
         start_yr = self[3]
