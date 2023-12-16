@@ -94,7 +94,7 @@ def user_details():
                 document_data = {'data': doc.to_dict()}
                 users_data.append(document_data)
                 users_data1 = pullRows(users_data)
-                users_data1['Billing'] = users_data1
+                users_data1.Billing = users_data1
             return jsonify(users_data1)
     else:
         users_data1 = ["hello there shane"]
