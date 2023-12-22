@@ -63,6 +63,19 @@ def pullRows(users_data):
 def main():
     return render_template("defrr.html")
 
+# retrieve customer info
+@app.route('/customers')
+def customers():
+    subscriber_id = 'Charlie Corp'
+    database_ref = db.collection('subscribers')
+    query = database_ref.document(subscriber_id).collection('contracts')
+    docs = query.stream()
+    customers_data = []
+    for doc in docs:
+        document_data = {'data': doc.to_dict()}
+        customers_data.append(document_data)
+    return jsonify(customers_data)
+
 @app.route('/microservice1', methods=['GET', 'POST'])
 def user_details():
     if request.method == 'POST':
