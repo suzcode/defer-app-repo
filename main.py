@@ -73,8 +73,11 @@ def customers():
     customers_data = []
     for doc in docs:
         document_data = {doc.to_dict()}
+        print('document data', document_data)
         cust_name = document_data['customer_name']
+        print('customer name', cust_name)
         customers_data.append(cust_name)
+        print('cusotomers_data', customers_data)
     return jsonify(customers_data)
 
 @app.route('/microservice1', methods=['GET', 'POST'])
