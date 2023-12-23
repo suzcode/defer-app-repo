@@ -72,7 +72,7 @@ def customers():
     docs = query.stream()
     customers_data = []
     for doc in docs:
-        document_data = {doc.to_dict()}
+        document_data = doc.to_dict()
         print('document data', document_data)
         cust_name = document_data['customer_name']
         print('customer name', cust_name)
