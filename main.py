@@ -72,8 +72,9 @@ def customers():
     docs = query.stream()
     customers_data = []
     for doc in docs:
-        document_data = {'data': doc.to_dict()}
-        customers_data.append(document_data)
+        document_data = {doc.to_dict()}
+        cust_name = document_data.customer_name
+        customers_data.append(cust_name)
     return jsonify(customers_data)
 
 @app.route('/microservice1', methods=['GET', 'POST'])
