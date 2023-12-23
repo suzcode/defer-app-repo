@@ -73,7 +73,7 @@ def customers():
     customers_data = []
     for doc in docs:
         document_data = {doc.to_dict()}
-        cust_name = document_data.customer_name
+        cust_name = document_data['customer_name']
         customers_data.append(cust_name)
     return jsonify(customers_data)
 
