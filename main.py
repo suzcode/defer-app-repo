@@ -107,13 +107,13 @@ def user_details():
             #query = users_ref
             docs = query.stream()
             users_data = []
-            CUSTOMERS = []
+            CUSTOMERS = {}
             for doc in docs:
                 # users_data.append({"id": doc.id, "fields": doc.to_dict()})
                 document_data = {'data': doc.to_dict()}
                 users_data.append(document_data)
                 users_data1 = pullRows(users_data)
-            CUSTOMERS.Billing = users_data1
+            CUSTOMERS['Billing'] = users_data1
             return jsonify(CUSTOMERS)
     else:
         users_data1 = ["hello there shane"]
