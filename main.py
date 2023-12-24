@@ -103,17 +103,18 @@ def user_details():
             # cont_years = Customer.year_diff(self_info)
             # return jsonify(cont_years)
             # -------------------------------------
-
             query = database_ref.document(subscriber_id).collection('contracts')  # Your query conditions here
             #query = users_ref
             docs = query.stream()
             users_data = []
+            CUSTOMERS = []
             for doc in docs:
                 # users_data.append({"id": doc.id, "fields": doc.to_dict()})
                 document_data = {'data': doc.to_dict()}
                 users_data.append(document_data)
                 users_data1 = pullRows(users_data)
-            return jsonify(users_data1)
+            CUSTOMERS['Billing'] = users_data1
+            return jsonify(CUSTOMERS)
     else:
         users_data1 = ["hello there shane"]
         print(users_data1)
