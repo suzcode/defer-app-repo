@@ -57,7 +57,8 @@ def pullRows(users_data):
     years = customer_instance.create_yearList(originalBillList)
     bill = customer_instance.create_profile(originalBillList, years)
     final_list = add_months_as_keys(bill, years)
-    return users_data
+    users_data_dict = dict(users_data)
+    return users_data_dict
 
 @app.route('/')
 def main():
