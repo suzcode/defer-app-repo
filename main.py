@@ -45,7 +45,7 @@ def add_months_as_keys(filter, years):
 
 def pullRows(users_data):
     i = 0
-    while i < 2:
+    while i < 1:
         value_ret = users_data[i]
         dict_ret = value_ret["data"]
         # values_list = [value for value in dict_ret.values()]
@@ -57,7 +57,7 @@ def pullRows(users_data):
     years = customer_instance.create_yearList(originalBillList)
     bill = customer_instance.create_profile(originalBillList, years)
     final_list = add_months_as_keys(bill, years)
-    return values_list
+    return final_list
 
 @app.route('/')
 def main():
@@ -77,7 +77,7 @@ def customers():
         print('document data', document_data)
         cust_name = document_data['customer_name']
         print('customer name', cust_name)
-        customers_data.append(cust_name)
+        customers_data.append(document_data)
         print('cusotomers_data', customers_data)
         CUSTOMERS = customers_data
     return jsonify(CUSTOMERS)
