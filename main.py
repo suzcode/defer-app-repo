@@ -77,7 +77,7 @@ def customers():
         print('document data', document_data)
         cust_name = document_data['customer_name']
         print('customer name', cust_name)
-        customers_data.append(document_data)
+        customers_data.append(cust_name)
         print('cusotomers_data', customers_data)
         CUSTOMERS = customers_data
     return jsonify(CUSTOMERS)
