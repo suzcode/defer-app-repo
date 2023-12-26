@@ -84,7 +84,7 @@ def customers():
 
 # retrieve ALL customer info
 @app.route('/contract')
-def customers():
+def contract_details():
     subscriber_id = 'Charlie Corp'
     database_ref = db.collection('subscribers')
     query = database_ref.document(subscriber_id).collection('contracts')
