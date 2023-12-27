@@ -83,7 +83,7 @@ def customers():
     return jsonify(CUSTOMERS)
 
 # retrieve ALL customer info
-@app.route('/contract')
+@app.route('/contract', methods=['GET', 'POST'])
 def contract_details():
     subscriber_id = 'Charlie Corp'
     database_ref = db.collection('subscribers')
