@@ -44,6 +44,7 @@ def add_months_as_keys(filter, years):
     return resultList
 
 def pullRows1(contract_list):
+    all_profiles = {}
     count = 1
     for contract in contract_list:
         values_list = [contract[key] for key in sorted(contract.keys())]
