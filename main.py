@@ -89,18 +89,16 @@ def contract_details():
     database_ref = db.collection('subscribers')
     query = database_ref.document(subscriber_id).collection('contracts')
     docs = query.stream()
-    CUSTOMERS = {}
-    customers_data = []
+    CONTRACTS = {}
+    contracts_data = []
     docs1 = docs.to_dict()
     for doc in docs:
         document_data = doc.to_dict()
         print('document data', document_data)
-        cust_name = document_data['customer_name']
-        print('customer name', cust_name)
-        customers_data.append(cust_name)
-        print('cusotomers_data', customers_data)
-        CUSTOMERS = customers_data
-    return jsonify(docs1)
+        contracts_data.append(document_data)
+        print('cusotomers_data', contracts_data)
+        CONTRACTS = contracts_data
+    return jsonify(CONTRACTS)
 
 @app.route('/microservice1', methods=['GET', 'POST'])
 def user_details():
