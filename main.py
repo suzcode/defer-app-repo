@@ -91,7 +91,7 @@ def contract_details():
     docs = query.stream()
     CUSTOMERS = {}
     customers_data = []
-    docs1 = dict(docs)
+    docs1 = docs.to_dict()
     for doc in docs:
         document_data = doc.to_dict()
         print('document data', document_data)
