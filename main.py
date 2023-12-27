@@ -91,7 +91,6 @@ def contract_details():
     docs = query.stream()
     CONTRACTS = {}
     contracts_data = []
-    docs1 = docs.to_dict()
     for doc in docs:
         document_data = doc.to_dict()
         print('document data', document_data)
