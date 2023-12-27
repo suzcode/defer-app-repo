@@ -91,6 +91,7 @@ def contract_details():
     docs = query.stream()
     CUSTOMERS = {}
     customers_data = []
+    docs1 = dict(docs)
     for doc in docs:
         document_data = doc.to_dict()
         print('document data', document_data)
@@ -99,7 +100,7 @@ def contract_details():
         customers_data.append(cust_name)
         print('cusotomers_data', customers_data)
         CUSTOMERS = customers_data
-    return jsonify(docs)
+    return jsonify(docs1)
 
 @app.route('/microservice1', methods=['GET', 'POST'])
 def user_details():
