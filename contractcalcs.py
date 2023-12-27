@@ -105,3 +105,16 @@ class Customer:
             profile.append(new_row)
         print('CUSTOMER PROFILE:   ', list(profile))
         return profile
+
+    # this combined_profile function creates a combined dictionary
+    def combined_profile(self, all_billProfiles, profile, count):
+        active_customer = self.customer_name
+        active_start_year = self.start_year
+        # adds customers key (based on count variable) plus customer name to dictionary
+        all_billProfiles['Customer' + str(count)] = active_customer
+        # adds start year key (based on count variable) plus start year to dictionary
+        all_billProfiles['Start year' + str(count)] = active_start_year
+        # adds prfolie key (plus count variable) and 2D profile list value to the dictionary
+        all_billProfiles['billProfile' + str(count)] = profile
+        print('ALLLL BILLLLL PROFILLLLES = ', all_billProfiles)
+        return all_billProfiles

@@ -43,6 +43,19 @@ def add_months_as_keys(filter, years):
         lineNumber += 1
     return resultList
 
+def pullRows1(contract_list):
+    count = 1
+    for contract in contract_list:
+        values_list = [contract[key] for key in sorted(contract.keys())]
+        customer_instance = Customer(*values_list)
+        originalList = customer_instance.create_list()
+        years = customer_instance.create_yearList(originalList)
+        profile = customer_instance.create_profile(originalList, years)
+        all_profiles = customer_instance.combined_profile(all_profiles, profile, count)
+        count += 1
+    all_profiles_with_months = add_months_as_keys(all_profiles, years)
+    return all_profiles_with_months
+
 def pullRows(users_data):
     i = 0
     while i < 1:
@@ -96,7 +109,8 @@ def contract_details():
         print('document data', document_data)
         contracts_data.append(document_data)
         print('cusotomers_data', contracts_data)
-        CONTRACTS = contracts_data
+        contractData = pullRows1(contracts_data)
+        CONTRACTS = contractData
     return jsonify(CONTRACTS)
 
 @app.route('/microservice1', methods=['GET', 'POST'])
