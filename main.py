@@ -54,8 +54,8 @@ def pullRows1(contract_list):
         profile = customer_instance.create_profile(originalList, years)
         all_profiles = customer_instance.combined_profile(all_profiles, profile, count)
         count += 1
-    # all_profiles_with_months = add_months_as_keys(all_profiles, years)
-    return all_profiles
+    all_profiles_with_months = add_months_as_keys(all_profiles.billProfile1, years)
+    return all_profiles_with_months
 
 def pullRows(users_data):
     i = 0
