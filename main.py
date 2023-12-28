@@ -100,6 +100,7 @@ def pullRows1(contract_list):
         customer_instance = Customer(*values_list)
         originalList = customer_instance.create_list()
         years = customer_instance.create_yearList(originalList)
+        print('years in pullRows1', years)
         profile = customer_instance.create_profile(originalList, years)
         all_profiles = customer_instance.combined_profile(all_profiles, profile, count)
         count += 1
@@ -174,6 +175,7 @@ def contract_details():
                 print('cusotomers_data', contracts_data)
                 contractData, years = pullRows1(contracts_data)
                 print('contract data', contractData)
+                print('years from pullRows1', years)
                 billingList, customer_list = create_year_filters(contractData, filter_year)
                 print('billingList', billingList)
                 billingList_months = add_months_as_keys(billingList, years)
