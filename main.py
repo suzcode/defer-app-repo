@@ -164,13 +164,16 @@ def contract_details():
             docs = query.stream()
             CONTRACTS = {}
             contracts_data = []
+            billingList = []
+            customer_list = []
             for doc in docs:
                 document_data = doc.to_dict()
                 print('document data', document_data)
                 contracts_data.append(document_data)
                 print('cusotomers_data', contracts_data)
                 contractData = pullRows1(contracts_data)
-                CONTRACTS = contractData
+                billingList, customer_list = create_year_filters(contractData, filter_year)
+                CONTRACTS = billingList
             return jsonify(CONTRACTS)
 
 @app.route('/microservice1', methods=['GET', 'POST'])
