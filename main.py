@@ -154,7 +154,7 @@ def contract_details():
         else:
             request_value = json.loads(request.data)
             # get values from dict
-            filter_year_string = request_value.values()
+            filter_year_string = request_value['ref']
             # convert the year string to integer
             filter_year = int(filter_year_string)
             print('filter year is', filter_year)
