@@ -172,7 +172,9 @@ def contract_details():
                 contracts_data.append(document_data)
                 print('cusotomers_data', contracts_data)
                 contractData = pullRows1(contracts_data)
+                print('contract data', contractData)
                 billingList, customer_list = create_year_filters(contractData, filter_year)
+                print('billingList', billingList)
                 CONTRACTS = billingList
             return jsonify(CONTRACTS)
 
