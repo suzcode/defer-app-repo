@@ -103,7 +103,7 @@ def pullRows1(contract_list):
         profile = customer_instance.create_profile(originalList, years)
         all_profiles = customer_instance.combined_profile(all_profiles, profile, count)
         count += 1
-    return all_profiles
+    return all_profiles, years
 
 def pullRows(users_data):
     i = 0
@@ -165,17 +165,19 @@ def contract_details():
             CONTRACTS = {}
             contracts_data = []
             billingList = []
+            billingList_months = []
             customer_list = []
             for doc in docs:
                 document_data = doc.to_dict()
                 print('document data', document_data)
                 contracts_data.append(document_data)
                 print('cusotomers_data', contracts_data)
-                contractData = pullRows1(contracts_data)
+                contractData, years = pullRows1(contracts_data)
                 print('contract data', contractData)
                 billingList, customer_list = create_year_filters(contractData, filter_year)
                 print('billingList', billingList)
-                CONTRACTS = billingList
+                billingList_months = add_months_as_keys(billingList, years)
+                CONTRACTS = billingList_months
             return jsonify(CONTRACTS)
 
 @app.route('/microservice1', methods=['GET', 'POST'])
