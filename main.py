@@ -43,9 +43,57 @@ def add_months_as_keys(filter, years):
         lineNumber += 1
     return resultList
 
+def create_year_filters(profile_to_filter, filter_year):
+    filter_profile = {}
+    customer_list = []
+    FILTERED = []
+    for i, (k, v) in enumerate(profile_to_filter.items()):
+        print(i, k, v)
+        print(type(i), type(k), type(v))
+        zero_yr = False
+        # If key is a string and value is a string then the value is the customer name
+        if type(k) == str and type(v) == str:
+            # assign the customer key to the cust_key variable
+            cust_key = k
+            # assign the customer name to a temp variable
+            cust_temp = v
+        # If the value is an integer then it is the start year and set it as the start_yr variable
+        if type(v) == int:
+            start_yr = v
+            print('start year', start_yr)
+            # The year_offset determines how many positions in the list the filter year is from the start_yr
+            print('filter year', filter_year)
+            year_offset = filter_year - start_yr
+            print('year offset', year_offset)
+        # If the value is a list then set the end_yr variable as the length of the list minus 1
+        if type(k) == str and type(v) == list:
+            end_yr = start_yr + (len(v) - 1)
+            print('end yr', end_yr)
+            # If the filter yr is > end_yr then set the zero_yr varaible to True
+            if filter_year > end_yr:
+                zero_yr = True
+            # Create a key in the dictionary for the customer and assign the customer name
+            filter_profile[cust_key] = cust_temp
+            # Append the customer name to a customer list which is used in the dataframe as an index
+            customer_list.append(cust_temp)
+            print(customer_list)
+            # Create a key in the dictionary called year and assign it the filter_year the user entered in the form
+            filter_profile['year'] = filter_year
+            # If year_offset < 0 (i.e. filter year is less than the start year) set the zero_yr varaible to True
+            if year_offset < 0:
+                zero_yr = True
+            if zero_yr:
+                FILTERED.append([0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0])
+            else:
+                # Appends the list for the appropriate year to the 'filtered_list' list
+                FILTERED.append(v[year_offset])
+            # print(bill_list_filter)
+            # print(len(bill_list_filter))
+            # print(customer_list)
+    return FILTERED, customer_list
+
 def pullRows1(contract_list):
     all_profiles = {}
-    all_profiles_with_months = {}
     count = 1
     for contract in contract_list:
         values_list = [contract[key] for key in sorted(contract.keys())]
@@ -55,8 +103,7 @@ def pullRows1(contract_list):
         profile = customer_instance.create_profile(originalList, years)
         all_profiles = customer_instance.combined_profile(all_profiles, profile, count)
         count += 1
-    all_profiles_with_months = add_months_as_keys(all_profiles.billProfile1, years)
-    return all_profiles_with_months
+    return all_profiles
 
 def pullRows(users_data):
     i = 0
@@ -100,20 +147,26 @@ def customers():
 # retrieve ALL customer info
 @app.route('/contract', methods=['GET', 'POST'])
 def contract_details():
-    subscriber_id = 'Charlie Corp'
-    database_ref = db.collection('subscribers')
-    query = database_ref.document(subscriber_id).collection('contracts')
-    docs = query.stream()
-    CONTRACTS = {}
-    contracts_data = []
-    for doc in docs:
-        document_data = doc.to_dict()
-        print('document data', document_data)
-        contracts_data.append(document_data)
-        print('cusotomers_data', contracts_data)
-        contractData = pullRows1(contracts_data)
-        CONTRACTS = contractData
-    return jsonify(CONTRACTS)
+    if request.method == 'POST':
+        print('Request', request)
+        if request.data == None or request.data == '':
+            print('null or empty string value for data in a file')
+        else:
+            filter_year = int(json.loads(request.data))
+            subscriber_id = 'Charlie Corp'
+            database_ref = db.collection('subscribers')
+            query = database_ref.document(subscriber_id).collection('contracts')
+            docs = query.stream()
+            CONTRACTS = {}
+            contracts_data = []
+            for doc in docs:
+                document_data = doc.to_dict()
+                print('document data', document_data)
+                contracts_data.append(document_data)
+                print('cusotomers_data', contracts_data)
+                contractData = pullRows1(contracts_data)
+                CONTRACTS = contractData
+            return jsonify(CONTRACTS)
 
 @app.route('/microservice1', methods=['GET', 'POST'])
 def user_details():
