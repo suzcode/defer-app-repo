@@ -178,7 +178,7 @@ def contract_details():
                 print('years from pullRows1', years)
                 billingList, customer_list = create_year_filters(contractData, filter_year)
                 print('billingList', billingList)
-                billingList_months = add_months_as_keys(billingList, years)
+                billingList_months = add_months_as_keys(billingList, customer_list)
                 CONTRACTS = billingList_months
             return jsonify(CONTRACTS)
 
