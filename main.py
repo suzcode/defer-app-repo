@@ -94,14 +94,18 @@ def create_year_filters(profile_to_filter, filter_year):
 
 def pullRows1(contract_list):
     all_profiles = {}
+    anniversaryList = []
     count = 1
     for contract in contract_list:
         values_list = [contract[key] for key in sorted(contract.keys())]
         customer_instance = Customer(*values_list)
         originalList = customer_instance.create_list()
+        anniversaryList = customer_instance.calc_ann_months()
+        invoices = customer_instance.calc_ann_invoices()
+        billing = customer_instance.update_inv(originalList, anniversaryList, invoices)
         years = customer_instance.create_yearList(originalList)
         print('years in pullRows1', years)
-        profile = customer_instance.create_profile(originalList, years)
+        profile = customer_instance.create_profile(billing, years)
         all_profiles = customer_instance.combined_profile(all_profiles, profile, count)
         count += 1
     return all_profiles, years

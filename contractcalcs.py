@@ -20,24 +20,63 @@ class Customer:
         self.term_months = term_months
 
     def start(self):
-        start_day = self['start_day']
-        start_mth = self['start_mth']
-        start_yr = self['start_yr']
-        start_subs = self['start_subs']
-        return start_day, start_mth, start_yr, start_subs
+        start_day = self.start_day
+        start_month = self.start_month
+        start_year = self.start_year
+        start_subs = self.start_subs
+        return start_day, start_month, start_year, start_subs
 
     def end(self):
-        end_day = self['end_day']
-        end_mth = self['end_mth']
-        end_yr = self['end_yr']
-        return end_day, end_mth, end_yr
+        end_day = self.end_day
+        end_month = self.end_month
+        end_year = self.end_year
+        return end_day, end_month, end_year
 
     def calculate_mths(self):
         monthList = list(rrule.rrule(rrule.MONTHLY, dtstart=date(
-            start_yr, start_mth, start_day), until=date(end_yr, end_mth, end_day)))
+            start_year, start_month, start_day), until=date(end_year, end_month, end_day)))
         print(monthList)
         print(monthList[0])
         return len(monthList)
+
+    # creates a list of anniversary months
+    def calc_ann_months(self):
+        # Customer.start(self)
+        anniversary_month = []
+        counter = 0
+        factor = self.start_mth
+        for i in range(int(self.term_mths) + 1):
+            # loops through the total number of month and if an anniversary month adds to list
+            if (counter - factor) % 12 == 0:
+                anniversary_month.append(counter)
+            counter += 1
+        return anniversary_month
+
+    # this function returns a list of all the invoice values for the duration of the contract
+    def calc_ann_invoices(self):
+        # starts the invoice list with the initial subs value from the contract
+        invoice_list = [float(self.start_subs)]
+        print(invoice_list)
+        # loops through the number of years of the contract (which is the term div by 12)
+        for i in range(int((self.term_months + self.start_mth) / 12)):
+            print(i)
+            # applies the increase to the subs value and appends to the invoice list
+            inc_factor = (float(1 + (self.percent_inc / 100)))
+            new_subs = invoice_list[i] * inc_factor
+            new_subs = round(new_subs, 2)
+            # new_subs = round(float(new_subs), 2)
+            invoice_list.append(new_subs)
+        return invoice_list
+
+    # loops through the list of zero values and adds the invoice amount
+    def update_inv(self, billList, anniversary_list, invoices):
+        for i in range(len(billList)):
+            for annmth in anniversary_list:
+                # checks if the current month in the loop is an anniversary month
+                if annmth == i + 1:
+                    bill_year = int(annmth / 12)
+                    billList[i] = invoices[bill_year]
+        return billList
     
     def add_months_as_keys(filter, years):
         months1 = ['id', 'jan', 'feb', 'mar', 'apr', 'may',
