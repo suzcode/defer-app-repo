@@ -44,8 +44,8 @@ class Customer:
         # Customer.start(self)
         anniversary_month = []
         counter = 0
-        factor = self.start_mth
-        for i in range(int(self.term_mths) + 1):
+        factor = self.start_month
+        for i in range(int(self.term_months) + 1):
             # loops through the total number of month and if an anniversary month adds to list
             if (counter - factor) % 12 == 0:
                 anniversary_month.append(counter)
@@ -58,7 +58,7 @@ class Customer:
         invoice_list = [float(self.start_subs)]
         print(invoice_list)
         # loops through the number of years of the contract (which is the term div by 12)
-        for i in range(int((self.term_months + self.start_mth) / 12)):
+        for i in range(int((self.term_months + self.start_month) / 12)):
             print(i)
             # applies the increase to the subs value and appends to the invoice list
             inc_factor = (float(1 + (self.percent_inc / 100)))
