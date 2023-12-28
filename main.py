@@ -153,7 +153,8 @@ def contract_details():
             print('null or empty string value for data in a file')
         else:
             request_value = json.loads(request.data)
-            filter_year = int(request_value.values())
+            filter_year_string = request_value.values()
+            filter_year = int(filter_year_string)
             print('filter year is', filter_year)
             subscriber_id = 'Charlie Corp'
             database_ref = db.collection('subscribers')
