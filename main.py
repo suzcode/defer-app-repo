@@ -110,6 +110,17 @@ def pullRows1(contract_list):
         count += 1
     return all_profiles, years
 
+def run_calcs():
+    subscriber_id = 'Charlie Corp'
+    database_ref = db.collection('subscribers')
+    query = database_ref.document(subscriber_id).collection('contracts')
+    docs = query.stream()
+    bill = pullRows1(docs)
+    all_billProfiles = bill[15]
+    print('BILLLLLLLLLLLLLLLLLLLL', all_billProfiles)
+    return all_billProfiles
+
+
 def pullRows(users_data):
     i = 0
     while i < 1:
@@ -163,10 +174,7 @@ def contract_details():
             # convert the year string to integer
             filter_year = int(filter_year_string)
             print('filter year is', filter_year)
-            subscriber_id = 'Charlie Corp'
-            database_ref = db.collection('subscribers')
-            query = database_ref.document(subscriber_id).collection('contracts')
-            docs = query.stream()
+            all_billProfiles = run_module()
             CONTRACTS = {}
             contracts_data = []
             billingList = []
@@ -224,6 +232,10 @@ def user_details():
         users_data1 = ["hello there shane"]
         print(users_data1)
     return jsonify(users_data1)
+
+def run_module():
+    all_billProfiles = run_calcs()
+    return all_billProfiles
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=8080)
