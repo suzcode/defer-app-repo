@@ -92,11 +92,22 @@ def create_year_filters(profile_to_filter, filter_year):
             # print(customer_list)
     return FILTERED, customer_list
 
-def pullRows1(contract_list):
+def pullRows1():
     all_profiles = {}
     anniversaryList = []
+    contracts_data = []
     count = 1
-    for contract in contract_list:
+    subscriber_id = 'Charlie Corp'
+    database_ref = db.collection('subscribers')
+    query = database_ref.document(subscriber_id).collection('contracts')
+    docs = query.stream()
+    # loops through and converts firestore data to python list called contracts_data
+    for doc in docs:
+        document_data = doc.to_dict()
+        print('document data', document_data)
+        contracts_data.append(document_data)
+        print('cusotomers_data', contracts_data)
+    for contract in contracts_data:
         values_list = [contract[key] for key in sorted(contract.keys())]
         customer_instance = Customer(*values_list)
         originalList = customer_instance.create_list()
@@ -111,11 +122,7 @@ def pullRows1(contract_list):
     return all_profiles, years
 
 def run_calcs():
-    subscriber_id = 'Charlie Corp'
-    database_ref = db.collection('subscribers')
-    query = database_ref.document(subscriber_id).collection('contracts')
-    docs = query.stream()
-    bill = pullRows1(docs)
+    bill = pullRows1()
     all_billProfiles = bill[15]
     print('BILLLLLLLLLLLLLLLLLLLL', all_billProfiles)
     return all_billProfiles
@@ -174,25 +181,19 @@ def contract_details():
             # convert the year string to integer
             filter_year = int(filter_year_string)
             print('filter year is', filter_year)
-            all_billProfiles = run_module()
             CONTRACTS = {}
             contracts_data = []
             billingList = []
             billingList_months = []
             customer_list = []
-            for doc in docs:
-                document_data = doc.to_dict()
-                print('document data', document_data)
-                contracts_data.append(document_data)
-                print('cusotomers_data', contracts_data)
-                contractData, years = pullRows1(contracts_data)
-                print('contract data', contractData)
-                print('years from pullRows1', years)
-                billingList, customer_list = create_year_filters(contractData, filter_year)
-                print('billingList', billingList)
-                # add month labels on x axis and customer names on y axis
-                billingList_months = add_months_as_keys(billingList, customer_list)
-                CONTRACTS = billingList_months
+            contractData, years = pullRows1()
+            print('contract data', contractData)
+            print('years from pullRows1', years)
+            billingList, customer_list = create_year_filters(contractData, filter_year)
+            print('billingList', billingList)
+            # add month labels on x axis and customer names on y axis
+            billingList_months = add_months_as_keys(billingList, customer_list)
+            CONTRACTS = billingList_months
             return jsonify(CONTRACTS)
 
 @app.route('/microservice1', methods=['GET', 'POST'])
@@ -233,9 +234,9 @@ def user_details():
         print(users_data1)
     return jsonify(users_data1)
 
-def run_module():
-    all_billProfiles = run_calcs()
-    return all_billProfiles
+# def run_module():
+#     all_billProfiles = run_calcs()
+#     return all_billProfiles
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=8080)
