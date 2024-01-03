@@ -121,13 +121,6 @@ def pullRows1():
         count += 1
     return all_profiles, years
 
-def run_calcs():
-    bill = pullRows1()
-    all_billProfiles = bill[15]
-    print('BILLLLLLLLLLLLLLLLLLLL', all_billProfiles)
-    return all_billProfiles
-
-
 def pullRows(users_data):
     i = 0
     while i < 1:
@@ -193,7 +186,7 @@ def contract_details():
             print('billingList', billingList)
             # add month labels on x axis and customer names on y axis
             billingList_months = add_months_as_keys(billingList, customer_list)
-            CONTRACTS = billingList_months
+            CONTRACTS['Billing'] = billingList_months
             return jsonify(CONTRACTS)
 
 @app.route('/microservice1', methods=['GET', 'POST'])
@@ -233,10 +226,6 @@ def user_details():
         users_data1 = ["hello there shane"]
         print(users_data1)
     return jsonify(users_data1)
-
-# def run_module():
-#     all_billProfiles = run_calcs()
-#     return all_billProfiles
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=8080)
