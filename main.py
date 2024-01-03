@@ -141,7 +141,7 @@ def pullRows(users_data):
 def main():
     return render_template("defrr.html")
 
-# retrieve customer info
+# retrieve customer names as a list
 @app.route('/customers')
 def customers():
     subscriber_id = 'Charlie Corp'
@@ -160,8 +160,8 @@ def customers():
         CUSTOMERS = customers_data
     return jsonify(CUSTOMERS)
 
-# retrieve ALL customer info
-@app.route('/contract', methods=['GET', 'POST'])
+# retrieve all customer profile info for a selected year 
+@app.route('/yearfilter', methods=['GET', 'POST'])
 def contract_details():
     if request.method == 'POST':
         print('Request', request)
@@ -175,7 +175,6 @@ def contract_details():
             filter_year = int(filter_year_string)
             print('filter year is', filter_year)
             CONTRACTS = {}
-            contracts_data = []
             billingList = []
             billingList_months = []
             customer_list = []
@@ -201,7 +200,7 @@ def user_details():
             post_data = json.loads(request.data)
             print('Post data is:', post_data)
             # user_age = int(post_data['ageval'])
-            email_selection = post_data['ageval']
+            customer_selection = post_data['cust']
             subscriber_id = 'Charlie Corp'
             database_ref = db.collection('subscribers')
             # field_filter = FieldFilter("email", "==", email_selection)
