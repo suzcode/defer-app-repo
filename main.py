@@ -133,7 +133,8 @@ def pullRows1():
     return all_profiles, years
 
 def pullRows2(users_data):
-    dict_ret = users_data[0]
+    value_ret = users_data[0]
+    dict_ret = value_ret["data"]
     values_list = [dict_ret[key] for key in sorted(dict_ret.keys())]
     customer_instance = Customer(*values_list)
     originalBillList = customer_instance.create_list()
@@ -142,7 +143,7 @@ def pullRows2(users_data):
     billing = customer_instance.update_inv(originalBillList, anniversaryList, invoices)
     years = customer_instance.create_yearList(originalBillList)
     bill = customer_instance.create_profile(billing, years)
-    final_list = add_months_as_keys(bill. years)
+    final_list = add_months_as_keys(bill, years)
     return final_list
 
 
