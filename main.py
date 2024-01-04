@@ -92,6 +92,17 @@ def create_year_filters(profile_to_filter, filter_year):
             # print(customer_list)
     return FILTERED, customer_list
 
+def calcSubtotal(list_to_subtotal):
+    print('LIST TO SUBTOTAL', list_to_subtotal)
+    subtotalList = list()
+    for j in range(0, len(list_to_subtotal[0])):
+        tmp = 0
+        for i in range(0, len(list_to_subtotal)):
+            tmp = round((tmp + list_to_subtotal[i][j]), 2)
+        subtotalList.append(tmp)
+        print('subtotalList>>>>>>>>>', subtotalList)
+    return subtotalList
+
 def pullRows1():
     all_profiles = {}
     anniversaryList = []
@@ -183,6 +194,8 @@ def contract_details():
             print('years from pullRows1', years)
             billingList, customer_list = create_year_filters(contractData, filter_year)
             print('billingList', billingList)
+            billingListSubtotal = calcSubtotal(billingList)
+            billingList.append(billingListSubtotal)
             # add month labels on x axis and customer names on y axis
             billingList_months = add_months_as_keys(billingList, customer_list)
             CONTRACTS['Billing'] = billingList_months
