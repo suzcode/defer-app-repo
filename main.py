@@ -216,14 +216,14 @@ def user_details():
             customer_selection = post_data['cust']
             subscriber_id = 'Charlie Corp'
             database_ref = db.collection('subscribers')
-            # field_filter = FieldFilter("email", "==", email_selection)
+            field_filter = FieldFilter("customer_name", "==", customer_selection)
             # -------------------------------------
             # self_info = ["c1234", "TVNZ Inc", "c1", 2021, 3, 10, 10000, 3, 2027, 10, 23, 18]
             # cont_years = Customer.year_diff(self_info)
             # return jsonify(cont_years)
             # -------------------------------------
             query = database_ref.document(subscriber_id).collection('contracts')  # Your query conditions here
-            #query = users_ref
+            query = query.where(filter=field_filter)
             docs = query.stream()
             users_data = []
             CUSTOMERS = {}
