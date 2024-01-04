@@ -133,7 +133,7 @@ def pullRows1():
     return all_profiles, years
 
 def pullRows2(users_data):
-    dict_ret = users_data["data"]
+    dict_ret = users_data[0]
     values_list = [dict_ret[key] for key in sorted(dict_ret.keys())]
     customer_instance = Customer(*values_list)
     originalBillList = customer_instance.create_list()
@@ -151,7 +151,6 @@ def pullRows(users_data):
     while i < 1:
         value_ret = users_data[i]
         dict_ret = value_ret["data"]
-        # values_list = [value for value in dict_ret.values()]
         values_list = [dict_ret[key] for key in sorted(dict_ret.keys())]
         i += 1
     # create a separate customer instance
@@ -231,11 +230,6 @@ def user_details():
             subscriber_id = 'Charlie Corp'
             database_ref = db.collection('subscribers')
             field_filter = FieldFilter("customer_name", "==", customer_selection)
-            # -------------------------------------
-            # self_info = ["c1234", "TVNZ Inc", "c1", 2021, 3, 10, 10000, 3, 2027, 10, 23, 18]
-            # cont_years = Customer.year_diff(self_info)
-            # return jsonify(cont_years)
-            # -------------------------------------
             query = database_ref.document(subscriber_id).collection('contracts')  # Your query conditions here
             query = query.where(filter=field_filter)
             docs = query.stream()
