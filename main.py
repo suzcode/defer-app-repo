@@ -197,8 +197,8 @@ def add_contract():
             new_contract_object = request_value['entries']
             subscriber_id = 'Charlie Corp'
             database_ref = db.collection('subscribers')
-            query = database_ref.document(subscriber_id).collection('contracts')
-            query.add(new_contract_object)
+            new_contract_ref = database_ref.document(subscriber_id).collection('contracts').document()
+            new_contract_ref.set(new_contract_object)
             print('OBJECT ADDED', new_contract_object)
             return new_contract_object
 
