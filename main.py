@@ -185,17 +185,24 @@ def customers():
         CUSTOMERS = customers_data
     return jsonify(CUSTOMERS)
 
-@app.route('/addcontract')
+@app.route('/addcontract', methods=['GET', 'POST'])
 def add_contract():
-    request_value = json.loads(request.data)
-    # get values from dict
-    new_contract_object = request_value['entries']
-    subscriber_id = 'Charlie Corp'
-    database_ref = db.collection('subscribers')
-    new_contract_ref = database_ref.document(subscriber_id).collection('contracts').document()
-    new_contract_ref.set(new_contract_object)
-    print('OBJECT ADDED', new_contract_object)
-    return request
+    if request.method == 'POST':
+        print('Request', request)
+        if request.data == None or request.data == '':
+            print('null or empty string value for data in a file')
+        else:
+            request_value = json.loads(request.data)
+            # get values from dict
+            new_contract_object = request_value['entries']
+            subscriber_id = 'Charlie Corp'
+            database_ref = db.collection('subscribers')
+            new_contract_ref = database_ref.document(subscriber_id).collection('contracts').document()
+            new_contract_ref.set(new_contract_object)
+            print('OBJECT ADDED', new_contract_object)
+            response_message = {}
+            response_message = request.data
+            return response_message
 
 # retrieve all customer profile info for a selected year 
 @app.route('/yearfilter', methods=['GET', 'POST'])
