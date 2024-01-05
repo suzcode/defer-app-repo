@@ -195,7 +195,7 @@ def add_contract():
     new_contract_ref = database_ref.document(subscriber_id).collection('contracts').document()
     new_contract_ref.set(new_contract_object)
     print('OBJECT ADDED', new_contract_object)
-    return new_contract_object
+    return request
 
 # retrieve all customer profile info for a selected year 
 @app.route('/yearfilter', methods=['GET', 'POST'])
