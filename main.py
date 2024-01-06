@@ -200,8 +200,8 @@ def add_contract():
             new_contract_ref = database_ref.document(subscriber_id).collection('contracts').document()
             new_contract_ref.set(new_contract_object)
             print('OBJECT ADDED', new_contract_object)
-            response_message = {}
-            response_message = request.data
+            response_message = ""
+            response_message = new_contract_ref.id
             return response_message
 
 # retrieve all customer profile info for a selected year 
