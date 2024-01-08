@@ -12,6 +12,9 @@ app = Flask(__name__)
 whitelisted_origins = [
     r'/microservice1',
     'http://34.111.111.147',
+    r'/customers',
+    r'/addcontract',
+    r'/yearfilter',
     # Add more origins as needed
 ]
 
