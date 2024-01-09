@@ -5,7 +5,7 @@ from itertools import accumulate
 
 
 class Customer:
-    def __init__(self, contract_id, customer_id, customer_name, end_day, end_month, end_year, percent_inc, start_day, start_month, start_subs, start_year, term_months):
+    def __init__(self, contract_id, customer_id, customer_name, end_day, end_month, end_year, percent_inc, start_day, start_month, start_subs, start_year, term_months, contract_updates):
         self.contract_id = contract_id
         self.customer_id = customer_id
         self.customer_name = customer_name
@@ -18,6 +18,7 @@ class Customer:
         self.start_subs = start_subs
         self.start_year = start_year
         self.term_months = term_months
+        self.contract_updates = contract_updates
 
     def start(self):
         start_day = self.start_day
