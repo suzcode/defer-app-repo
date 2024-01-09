@@ -231,15 +231,17 @@ def add_contract():
 def contract_updates():
     print('RAW DATA', request.data)
     post_data1 = json.loads(request.data)
+    # customerName in the first field in the post_data1 object
     customerName = post_data1[0]
     subscriber_id = 'Charlie Corp'
     database_ref = db.collection('subscribers')
     field_filter = FieldFilter("customer_name", "==", customerName)
-    query = database_ref.document(subscriber_id).collection('contracts')  # Your query conditions here
+    query = database_ref.document(subscriber_id).collection('contracts')
     query = query.where(filter=field_filter)
     documents = query.stream()
     if documents:
         for document in documents:
+            # The 'contract_updates' are the second field in the post_data1 object
             document.reference.update({"contract_updates": post_data1[1]})
         return post_data1[1]
     else:
