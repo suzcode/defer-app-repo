@@ -27,6 +27,26 @@ firebase_admin.initialize_app()
 
 db = firestore.client()
 
+CUSTOMERP = {
+    '0': 0,
+    '1': 0,
+    '2': 0,
+    '3': 0,
+    '4': 0,
+    '5': 0,
+    '6': 0,
+    '7': 0,
+    '8': 0,
+    '9': 0,
+    '10': 0,
+    '11': 0,
+}
+
+# def checkAdjustments():
+    # cursor.execute("SELECT * from CellUpdates")
+    # updateCells = cursor.fetchall()
+    # return updateCells
+
 def add_months_as_keys(filter, years):
     months1 = ['id', 'jan', 'feb', 'mar', 'apr', 'may',
                'jun', 'jul', 'aug', 'sep', 'oct', 'nov', 'dec']
@@ -206,6 +226,25 @@ def add_contract():
             response_message = ""
             response_message = new_contract_ref.id
             return response_message
+        
+@app.route('/contractupdates', methods=['GET', 'POST'])
+def contract_updates():
+    print('RAW DATA', request.data)
+    post_data1 = json.loads(request.data)
+    customerName = post_data1[0]
+    subscriber_id = 'Charlie Corp'
+    database_ref = db.collection('subscribers')
+    field_filter = FieldFilter("customer_name", "==", customerName)
+    query = database_ref.document(subscriber_id).collection('contracts')  # Your query conditions here
+    query = query.where(filter=field_filter)
+    documents = query.stream()
+    if documents:
+        for document in documents:
+            document.reference.update({"contract_updates": post_data1[1]})
+        return post_data1[1]
+    else:
+        print("no documents to update")
+    return post_data1
 
 # retrieve all customer profile info for a selected year 
 @app.route('/yearfilter', methods=['GET', 'POST'])

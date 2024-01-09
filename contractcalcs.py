@@ -157,3 +157,77 @@ class Customer:
         all_billProfiles['billProfile' + str(count)] = profile
         print('ALLLL BILLLLL PROFILLLLES = ', all_billProfiles)
         return all_billProfiles
+
+    def profile_accumulate(self, list_to_accumulate):
+        return list(accumulate(list_to_accumulate))
+
+# ----------------------------------------------------------------------------------
+
+    def leap_year(self):
+        if self.start_year % 400 == 0:
+            return True
+        if self.start_year % 100 == 0:
+            return False
+        if self.start_year % 4 == 0:
+            return True
+        return False
+
+    def days_in_month(self):
+        if self.start_month in {1, 3, 5, 7, 8, 10, 12}:
+            return 31
+        if self.start_month == 2:
+            if Customer.leap_year(self):
+                return 29
+            return 28
+        return 30
+
+    def first_mth_amort(self):
+        number_days_in_first_mth = Customer.days_in_month(self)
+        active_days_first_mth = number_days_in_first_mth - \
+            (self.start_day - 1)
+        first_mth_ratio = (active_days_first_mth / number_days_in_first_mth)
+        print(first_mth_ratio)
+        print(type(first_mth_ratio))
+        monthly_subs_1 = float(self.start_subs / 12)
+        print(monthly_subs_1)
+        print(type(monthly_subs_1))
+        amort_mth_1 = round((first_mth_ratio * monthly_subs_1), 2)
+        print(amort_mth_1)
+        return amort_mth_1, monthly_subs_1
+
+    def anniversary_mth_amort(self, ann_mth, ann_yr, anniversary_list, yearList, invoices):
+        print('Ann mth', ann_mth)
+        print('yearlist ann mth = billing yr', yearList[ann_mth - 1])
+        print('Ann Yr', ann_yr)
+        number_days_in_ann_mth = Customer.days_in_month(self)
+        # start day is considered an active day therefore added back below so that it is included
+        active_days_ann_mth = (number_days_in_ann_mth - self.start_day) + 1
+        ann_mth_ratio = active_days_ann_mth / number_days_in_ann_mth
+        print('ANN MTH RATIO', type(ann_mth_ratio))
+        current_bill_yr = yearList[ann_mth - 2]
+        print('CURRENNT BILL YR', current_bill_yr)
+        next_bill_yr = yearList[ann_mth - 1]
+        print('NEXT BILL YR', next_bill_yr)
+        current_yr_subs = float(invoices[current_bill_yr - 1])
+        print('CUURRENT YR SUBS', current_yr_subs)
+        print(type(current_yr_subs))
+        next_yr_subs = float(invoices[next_bill_yr - 1])
+        print('yearlist next', yearList[ann_mth - 1])
+        print('Next yr', next_yr_subs)
+        print(type(next_yr_subs))
+        print('len anniversary list = ', len(anniversary_list))
+        print(ann_mth_ratio)
+        amort_ann_mth = round(
+            ((((1-ann_mth_ratio) * current_yr_subs) + ((ann_mth_ratio) * next_yr_subs)) / 12), 2)
+        print(amort_ann_mth)
+        return amort_ann_mth
+
+    def final_mth_amort(self, invoices, anniversary_list):
+        number_days_in_final_mth = Customer.days_in_month(self)
+        final_mth_ratio = self.end_day / number_days_in_final_mth
+        print(final_mth_ratio)
+        final_yr_subs = invoices[len(anniversary_list) - 1]
+        print('final yr subs', final_yr_subs)
+        amort_final_mth = round(((final_mth_ratio * final_yr_subs) / 12), 2)
+        print(amort_final_mth)
+        return amort_final_mth
