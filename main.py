@@ -156,8 +156,9 @@ def pullRows1():
     return all_profiles, years
 
 def pullRows2(users_data):
-    value_ret = users_data[0]
-    dict_ret = value_ret["data"]
+    # value_ret = users_data[0]
+    # dict_ret = value_ret["data"]
+    dict_ret = users_data
     values_list = [dict_ret[key] for key in sorted(dict_ret.keys())]
     customer_instance = Customer(*values_list)
     originalBillList = customer_instance.create_list()
@@ -301,7 +302,8 @@ def user_details():
             CUSTOMERS = {}
             for doc in docs:
                 # users_data.append({"id": doc.id, "fields": doc.to_dict()})
-                document_data = {'data': doc.to_dict()}
+                # document_data = {'data': doc.to_dict()}
+                document_data= { doc.to_dict()}
                 print("documnet_data", document_data)
                 document_data.pop('contract_updates', None)
                 users_data.append(document_data)
