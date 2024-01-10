@@ -160,11 +160,11 @@ def pullRows2(users_data):
     dict_ret = value_ret["data"]
     values_list = [dict_ret[key] for key in sorted(dict_ret.keys())]
     customer_instance = Customer(*values_list)
-    originalBillList = customer_instance.create_list()
+    originalBillList = customer_instance.create_list()   # could rename this originalList
     anniversaryList = customer_instance.calc_ann_months()
     invoices = customer_instance.calc_ann_invoices()
-    billing = customer_instance.update_inv(originalBillList, anniversaryList, invoices)
-    years = customer_instance.create_yearList(originalBillList)
+    billing = customer_instance.update_inv(originalBillList, anniversaryList, invoices)  #rename argument as originalList?
+    years = customer_instance.create_yearList(originalBillList) #rename argument as originalList
     bill = customer_instance.create_profile(billing, years)
     final_list = add_months_as_keys(bill, years)
     return final_list
@@ -305,9 +305,10 @@ def user_details():
                 document_dict = document_data["data"]
                 print("documnet_data", document_dict)
                 document_dict.pop('contract_updates', None)
-                document_dict["data"] = document_dict
-                print("document data popped", document_dict)
-                users_data.append(document_dict)
+                document_dict1 = document_dict
+                document_dict1["data"] = document_dict1
+                print("document data popped", document_dict1)
+                users_data.append(document_dict1)
                 users_data1 = pullRows2(users_data)
             CUSTOMERS['Billing'] = users_data1
             return jsonify(CUSTOMERS)
