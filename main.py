@@ -302,11 +302,11 @@ def user_details():
             CUSTOMERS = {}
             for doc in docs:
                 # users_data.append({"id": doc.id, "fields": doc.to_dict()})
-                # document_data = {'data': doc.to_dict()}
-                document_data= { doc.to_dict()}
-                print("documnet_data", document_data)
-                document_data.pop('contract_updates', None)
-                users_data.append(document_data)
+                document_data = {'data': doc.to_dict()}
+                document_dict = document_data["data"]
+                print("documnet_data", document_dict)
+                document_dict.pop('contract_updates', None)
+                users_data.append(document_dict)
                 users_data1 = pullRows2(users_data)
             CUSTOMERS['Billing'] = users_data1
             return jsonify(CUSTOMERS)
