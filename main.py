@@ -302,6 +302,7 @@ def user_details():
             for doc in docs:
                 # users_data.append({"id": doc.id, "fields": doc.to_dict()})
                 document_data = {'data': doc.to_dict()}
+                document_data.pop('contract_updates', None)
                 users_data.append(document_data)
                 users_data1 = pullRows2(users_data)
             CUSTOMERS['Billing'] = users_data1
