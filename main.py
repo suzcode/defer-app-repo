@@ -306,8 +306,9 @@ def user_details():
                 print("documnet_data", document_dict)
                 document_dict.pop('contract_updates', None)
                 document_dict1 = document_dict
+                print("document dict popped", document_dict1)
                 document_dict1["data"] = document_dict1
-                print("document data popped", document_dict1)
+                print("document data popped with data", document_dict1)
                 users_data.append(document_dict1)
                 users_data1 = pullRows2(users_data)
             CUSTOMERS['Billing'] = users_data1
