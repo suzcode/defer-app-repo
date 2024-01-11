@@ -232,7 +232,8 @@ def contract_updates():
     print('RAW DATA', request.data)
     post_data1 = json.loads(request.data)
     # customerName in the first field in the post_data1 object
-    customerName = post_data1[0]
+    customerName = post_data1['selectedCustomer']
+    cellUpdateInfo = post_data1['cellUpdates']
     subscriber_id = 'Charlie Corp'
     database_ref = db.collection('subscribers')
     field_filter = FieldFilter("customer_name", "==", customerName)
@@ -242,8 +243,8 @@ def contract_updates():
     if documents:
         for document in documents:
             # The 'contract_updates' are the second field in the post_data1 object
-            document.reference.update({"contract_updates": post_data1[1]})
-        return post_data1[1]
+            document.reference.update({"contract_updates": cellUpdateInfo})
+        return cellUpdateInfo
     else:
         print("no documents to update")
     return post_data1
