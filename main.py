@@ -301,15 +301,14 @@ def user_details():
             CUSTOMERS = {}
             for doc in docs:
                 # users_data.append({"id": doc.id, "fields": doc.to_dict()})
-                document_data = {'data': doc.to_dict()}
-                document_dict = document_data["data"]
-                print("documnet_data", document_dict)
+                document_dict = {doc.to_dict()}
+                print("documnet_dict", document_dict)
                 document_dict.pop('contract_updates', None)
-                document_dict1 = document_dict
-                print("document dict popped", document_dict1)
-                document_dict1["data"] = document_dict1
-                print("document data popped with data", document_dict1)
-                users_data.append(document_dict1)
+                print("document dict popped", document_dict)
+                document_data_with_key = {}
+                document_data_with_key['data'] = document_dict
+                print("document data popped with data", document_data_with_key)
+                users_data.append(document_data_with_key)
                 users_data1 = pullRows2(users_data)
             CUSTOMERS['Billing'] = users_data1
             return jsonify(CUSTOMERS)
