@@ -124,6 +124,30 @@ class Customer:
             bill_list.append(0)
         print('length of bill list', len(bill_list))
         return bill_list
+    
+    def changeListForUpdates(self, cellsFromDatabase, profileForUpdate, years, months):
+        lineNumber = 0
+        updatedList = []
+        print(years)
+        print(months)
+        for line in profileForUpdate:
+            print('line from profile for Update', line)
+            for cell in cellsFromDatabase:
+                print('cell', cell)
+                # Determine is the line is the line for the year of update
+                if cell['id'] == years[lineNumber]:
+                    print('MATCH')
+                    monthForPosition = cell['key']
+                    # determine position in array to update which is -1 as the array starts from 0
+                    pos = (months.get(monthForPosition)) - 1
+                    print('pos', pos)
+                    # update the value in the line at that position to the value in the cells from database
+                    line[pos] = float(cell['val'])
+            lineNumber += 1
+        print(profileForUpdate)
+        updatedBillingList = profileForUpdate
+        return updatedBillingList
+
 
     def create_yearList(self, billList):
         yearList = [self.start_year]
