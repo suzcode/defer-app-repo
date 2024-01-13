@@ -176,7 +176,7 @@ def pullRows2(users_data, updateItems):
         for item in bill:
             revised_bill_profile.append(item)
     print('REVISED BIILLIST', revised_bill_profile)
-    final_list = add_months_as_keys(revised_bill_profile, years)
+    final_list = add_months_as_keys(revised_bill, years)
     return final_list
 
 
