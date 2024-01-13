@@ -158,7 +158,7 @@ def pullRows1():
 def pullRows2(users_data, updateItems):
     value_ret = users_data[0]
     dict_ret = value_ret["data"]
-    print('updateItems', updateItems)
+    print('updateItems are', updateItems)
     values_list = [dict_ret[key] for key in sorted(dict_ret.keys())]
     customer_instance = Customer(*values_list)
     originalBillList = customer_instance.create_list()   # could rename this originalList
