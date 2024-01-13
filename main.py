@@ -156,6 +156,8 @@ def pullRows1():
     return all_profiles, years
 
 def pullRows2(users_data, updateItems):
+    months = {'jan': 1, 'feb': 2, 'mar': 3, 'apr': 4, 'may': 5, 'jun': 6,
+              'jul': 7, 'aug': 8, 'sep': 9, 'oct': 10, 'nov': 11, 'dec': 12}
     value_ret = users_data[0]
     dict_ret = value_ret["data"]
     print("upDate itens in pullRows2", updateItems)
@@ -167,7 +169,14 @@ def pullRows2(users_data, updateItems):
     billing = customer_instance.update_inv(originalBillList, anniversaryList, invoices)  #rename argument as originalList?
     years = customer_instance.create_yearList(originalBillList) #rename argument as originalList
     bill = customer_instance.create_profile(billing, years)
-    final_list = add_months_as_keys(bill, years)
+    revised_bill = customer_instance.changeListForUpdates(updateItems, bill, years, months)
+    revised_bill_profile = []
+    for bill in revised_bill:
+        print(bill)
+        for item in bill:
+            revised_bill_profile.append(item)
+    print('REVISED BIILLIST', revised_bill_profile)
+    final_list = add_months_as_keys(revised_bill_profile, years)
     return final_list
 
 

@@ -127,7 +127,6 @@ class Customer:
     
     def changeListForUpdates(self, cellsFromDatabase, profileForUpdate, years, months):
         lineNumber = 0
-        updatedList = []
         print(years)
         print(months)
         for line in profileForUpdate:
