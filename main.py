@@ -325,6 +325,7 @@ def user_details():
                 users_data.append(document_data_with_key)
                 users_data1 = pullRows2(users_data, updateItems)
             CUSTOMERS['Billing'] = users_data1
+            CUSTOMERS['cellChanges'] = updateItems
             return jsonify(CUSTOMERS)
     else:
         users_data1 = ["hello there shane"]
