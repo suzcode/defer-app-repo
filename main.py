@@ -305,8 +305,9 @@ def user_details():
                 # users_data.append({"id": doc.id, "fields": doc.to_dict()})
                 document_dict = doc.to_dict()
                 print("documnet_dict", document_dict)
-                updateItems = document_dict['contract_updates'] 
-                document_dict.pop(updateItems, None)
+                updateItems = document_dict['contract_updates']
+                print(updateItems) 
+                document_dict.pop('contract_updates', None)
                 print("document dict popped", document_dict)
                 document_data_with_key = {}
                 document_data_with_key['data'] = document_dict
