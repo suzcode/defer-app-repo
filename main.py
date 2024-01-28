@@ -220,6 +220,7 @@ def customers():
 
 @app.route('/addcontract', methods=['GET', 'POST'])
 def add_contract():
+    response_message = ""
     if request.method == 'POST':
         print('Request', request)
         if request.data == None or request.data == '':
@@ -233,9 +234,9 @@ def add_contract():
             new_contract_ref = database_ref.document(subscriber_id).collection('contracts').document()
             new_contract_ref.set(new_contract_object)
             print('OBJECT ADDED', new_contract_object)
-            response_message = ""
             response_message = new_contract_ref.id
             return response_message
+    return response_message
         
 @app.route('/contractupdates', methods=['GET', 'POST'])
 def contract_updates():
