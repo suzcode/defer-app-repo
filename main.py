@@ -1,4 +1,4 @@
-from flask import Flask, jsonify, render_template, json, request
+from flask import Flask, jsonify, render_template, json, request, Response
 import firebase_admin
 from firebase_admin import firestore
 from flask_cors import CORS
@@ -219,11 +219,10 @@ def customers():
         CUSTOMERS = customers_data
     return jsonify(CUSTOMERS)
 
-@app.route('/addcontract', methods=['GET', 'POST'])
+@app.route('/addcontract', methods=['POST'])
 def add_contract():
     response_message = ""
     if request.method == 'POST':
-        print('Request', request)
         if request.data == None or request.data == '':
             print('null or empty string value for data in a file')
         else:
@@ -236,7 +235,14 @@ def add_contract():
             new_contract_ref.set(new_contract_object)
             print('OBJECT ADDED', new_contract_object)
             response_message = new_contract_ref.id
-            return response_message
+
+            # Create an XML response
+            xml_data = f"<response><message>{response_message}</message></response>"
+            response = Response(xml_data, content_type='application/xml')
+            return response
+
+    # If request.method is not POST or if request.data is empty
+    # return an empty response
     return response_message
         
 @app.route('/contractupdates', methods=['GET', 'POST'])
