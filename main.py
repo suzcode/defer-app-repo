@@ -9,6 +9,19 @@ from contractcalcs import *
 
 app = Flask(__name__)
 
+class ContentTypeOptionsMiddleware:
+    def __init__(self, app):
+        self.app = app
+
+    def __call__(self, environ, start_response):
+        def custom_start_response(status, headers, exc_info=None):
+            headers.append(('x-content-type-options', 'nosniff'))
+            return start_response(status, headers, exc_info)
+
+        return self.app(environ, custom_start_response)
+
+app.wsgi_app = ContentTypeOptionsMiddleware(app.wsgi_app)
+
 whitelisted_origins = [
     r'/microservice1',
     'http://34.111.111.147',
@@ -47,6 +60,8 @@ CUSTOMERP = {
     # cursor.execute("SELECT * from CellUpdates")
     # updateCells = cursor.fetchall()
     # return updateCells
+
+
 
 def add_months_as_keys(filter, years):
     months1 = ['id', 'jan', 'feb', 'mar', 'apr', 'may',
@@ -240,9 +255,6 @@ def add_contract():
             xml_data = f"<response><message>{response_message}</message></response>"
             response = Response(xml_data, content_type='application/xml')
 
-            # Add x-content-type-options header
-            response.headers['x-content-type-options'] = 'nosniff'
-            
             return response
 
     # If request.method is not POST or if request.data is empty
