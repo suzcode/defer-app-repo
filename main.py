@@ -239,6 +239,10 @@ def add_contract():
             # Create an XML response
             xml_data = f"<response><message>{response_message}</message></response>"
             response = Response(xml_data, content_type='application/xml')
+
+            # Add x-content-type-options header
+            response.headers['x-content-type-options'] = 'nosniff'
+            
             return response
 
     # If request.method is not POST or if request.data is empty
