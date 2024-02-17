@@ -240,6 +240,7 @@ def add_contract():
     if request.method == 'POST':
         if request.data == None or request.data == '':
             print('null or empty string value for data in a file')
+            return Response(status=400)
         else:
             request_value = json.loads(request.data)
             # get values from dict
@@ -259,7 +260,7 @@ def add_contract():
 
     # If request.method is not POST or if request.data is empty
     # return an empty response
-    return response_message
+    return Response(status=405)
         
 @app.route('/contractupdates', methods=['GET', 'POST'])
 def contract_updates():
