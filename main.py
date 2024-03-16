@@ -284,6 +284,46 @@ def contract_updates():
         print("no documents to update")
     return post_data1
 
+@app.route('/updateusers', methods=['POST'])
+def update_users():
+    response_message = ""
+    if request.method == 'POST':
+        if request.data == None or request.data == '':
+            print('null or empty string value for data in a file')
+            return Response(status=400)
+        else:
+            request_value = json.loads(request.data)
+            # get values from dict
+            new_user_data = request_value['entries']
+            uid = new_user_data['uid']
+            display_name = new_user_data['displayName']
+            
+            # check is the subscriber document exists by querying all subscriber documents
+            subscribers_ref = db.collection('subscribers').stream()
+
+            user_exists = False
+            for subscriber_doc in subscribers_ref:
+                # Check if the user exists in the current subscriber document
+                user_ref = subscriber_doc.reference.collection('users').document(uid)
+                user_doc = user_ref.get()
+
+                if user_doc.exists:
+                    # User exists in current subscriber document
+                    print(f"User with UID {uid} already exists in subscriber '{subscriber_doc.id}'")
+                    response_message += f"User with UID {uid} already exists in subscriber '{subscriber_doc.id}'. "
+                    user_exists = True
+
+            if not user_exists:
+                # User does not exist in any subscriber document, create new user document with default values
+                default_subscriber_id = 'Default Company'
+                default_subscriber_ref = db.collection('subscribers').document(default_subscriber_id)
+                default_subscriber_ref.collection('users').document(uid).set({
+                    'displayName': display_name,
+                })
+                print(f"User with UID {uid} created successfully under default subscriber '{default_subscriber_id}'")
+                response_message = f"User with UID {uid} created successfully under default subscriber '{default_subscriber_id}'"
+            return jsonify({'message': response_message})
+
 # retrieve all customer profile info for a selected year 
 @app.route('/yearfilter', methods=['GET', 'POST'])
 def contract_details():
